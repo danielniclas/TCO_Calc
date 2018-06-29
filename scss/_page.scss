@@ -1,0 +1,24 @@
+/* =================================
+  Base Element Styles
+==================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+  background: #efefef;
+  text-align: center;
+}
+
+h1 {
+   font-size: 200%;
+   font-family: sans-serif;
+ }
+
+.content {
+  background: #fff;
+  border: 1px #ddd solid;
+  margin: 20px;
+}

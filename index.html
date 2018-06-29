@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Datrium TCO Caclulator</title>
+
+  <!--CSS-->
+  <link rel="stylesheet" href="vendor/normalize/normalize.css">
+  <link rel="stylesheet" href="css/creative.min.css">
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <section id="wrapper">
+
+        <header class="page-header">
+          <h1 id="siteName"><a href="#">TCO Calc</a></h1>
+        </header>
+
+
+       <div class="container">
+
+            <form action="" method="get" id="userDataForm" name="user-data">
+            <div class="row">
+            <div class="col-sm-6">
+
+              <hr>
+              <h2 style="color:tomato">Customer Inputs (Basic)</h2>
+              <h4 style="color:tomato">Site 1</h4>
+
+              <fieldset>
+                <legend>Deployment Model</legend>
+                Primary Storage (1-Yes, 0-No):
+                <input type="text" class="userInputBasicS1" name="primaryStorage" value="1"><br>
+                Secondary Disk Storage (1-Yes, 0-No):
+                <input type="text" class="userInputBasicS1" name="secondaryDiskStorage" value="1"><br>
+                Tape (1 = local + offsite tape; 0 = no tape):
+                <input type="text" class="userInputBasicS1" name="tape" value="1"><br>
+                Use existing compute nodes (1-Yes, 0-No):
+                <input type="text" class="userInputBasicS1" name="existingComputeNodes" value="1"><br>
+                <br><br>
+              </fieldset>
+
+
+              <fieldset>
+                <legend>Primary Data & Workload</legend>
+                # of VMs:
+                <input type="text" class="userInputBasicS1" name="vms" value="1000"><br>
+                vCPUs per VM:
+                <input type="text" class="userInputBasicS1" name="vcpu" value="2"><br>
+                RAM (GB) per VM:
+                <input type="text" class="userInputBasicS1" name="ram" value="4"><br>
+                Disk (GB) per VM:
+                <input type="text" class="userInputBasicS1" name="disk" value="500"><br>
+                Projected Annual VM Growth:
+                <input type="text" class="userInputBasicS1" name="annualVmGrowth" value="20%"><br>
+                <br><br>
+              </fieldset>
+
+
+              <fieldset>
+                <legend>Backup & Archival Policy</legend>
+                Expected Primary Data Reduction (existing):
+                <input type="text" class="userInputBasicS1" name="primaryDataReduction" value="4"><br>
+                Expected Backup (disk) Data Reduction (existing):
+                <input type="text" class="userInputBasicS1" name="backupDataReduction" value="4"><br>
+                Expected Tape Data Reduction (existing):
+                <input type="text" class="userInputBasicS1" name="tapeDataReduction" value="2"><br>
+                Backup expiration schedule (# days):
+                <input type="text" class="userInputBasicS1" name="backupExpSched" value="90"><br>
+                Tape expiration schedule (# days):
+                <input type="text" class="userInputBasicS1" name="tapeExpSched" value="365"><br>
+                Daily change rate for backup (daily backups):
+                <input type="text" class="userInputBasicS1" name="backupChangeRate" value="2%"><br>
+                Data restored from tapes annually (%):
+                <input type="text" class="userInputBasicS1" name="tapeRestore" value="1%"><br>
+                <br><br>
+              </fieldset>
+
+              <hr>
+              <h2 style="color:tomato">Customer Inputs (Advanced)</h2>
+
+              <fieldset>
+                <legend>Compute Details</legend>
+                Server Cores:
+                <input type="text" class="userInputAdvancedS1" name="serverCores" value="40"><br>
+                <br><br>
+              </fieldset>
+
+              <fieldset>
+                <legend>DVX Details</legend>
+                Expected Primary Data Reduction (existing):
+                <input type="text" class="userInputAdvancedS1" name="expectedDataReduction" value="4"><br>
+                Cloud DVX data reduction:
+                <input type="text" class="userInputAdvancedS1" name="cloudDataReduction" value="1.00"><br>
+                Cloud DVX net price (5TB/month):
+                <input type="text" class="userInputAdvancedS1" name="cloudDVXNetPrice" value="$250"><br>
+                <br><br>
+              </fieldset>
+
+            </div>
+
+
+              <div class="col-sm-6">
+
+                <hr>
+                <h2 style="color:tomato">Customer Inputs (Basic)</h2>
+                <h4 style="color:tomato">Site 2</h4>
+
+                <fieldset>
+                  <legend>Deployment Model</legend>
+                  Primary Storage (1-Yes, 0-No):
+                  <input type="text" class="userInputBasicS2" name="primaryStorage" value="0"><br>
+                  Secondary Disk Storage (1-Yes, 0-No):
+                  <input type="text" class="userInputBasicS2" name="secondaryDiskStorage" value="0"><br>
+                  Tape (1 = local + offsite tape; 0 = no tape):
+                  <input type="text" class="userInputBasicS2" name="tape" value="0"><br>
+                  Use existing compute nodes (1-Yes, 0-No):
+                  <input type="text" class="userInputBasicS2" name="existingComputeNodes" value="0"><br>
+                  <br><br>
+                </fieldset>
+
+
+                <fieldset>
+                  <legend>Primary Data & Workload</legend>
+                  # of VMs:
+                  <input type="text" class="userInputBasicS2" name="vms" value="0"><br>
+                  vCPUs per VM:
+                  <input type="text" class="userInputBasicS2" name="vcpu" value="0"><br>
+                  RAM (GB) per VM:
+                  <input type="text" class="userInputBasicS2" name="ram" value="0"><br>
+                  Disk (GB) per VM:
+                  <input type="text" class="userInputBasicS2" name="disk" value="0"><br>
+                  Projected Annual VM Growth:
+                  <input type="text" class="userInputBasicS2" name="annualVmGrowth" value="0"><br>
+                  <br><br>
+                </fieldset>
+
+
+                <fieldset>
+                  <legend>Backup & Archival Policy</legend>
+                  Expected Primary Data Reduction (existing):
+                  <input type="text" class="userInputBasicS2" name="primaryDataReduction" value="1"><br>
+                  Expected Backup (disk) Data Reduction (existing):
+                  <input type="text" class="userInputBasicS2" name="backupDataReduction" value="1"><br>
+                  Expected Tape Data Reduction (existing):
+                  <input type="text" class="userInputBasicS2" name="tapeDataReduction" value="1"><br>
+                  Backup expiration schedule (# days):
+                  <input type="text" class="userInputBasicS2" name="backupExpSched" value="0"><br>
+                  Tape expiration schedule (# days):
+                  <input type="text" class="userInputBasicS2" name="tapeExpSched" value="0"><br>
+                  Daily change rate for backup (daily backups):
+                  <input type="text" class="userInputBasicS2" name="backupChangeRate" value="0"><br>
+                  Data restored from tapes annually (%):
+                  <input type="text" class="userInputBasicS2" name="tapeRestore" value="0"><br>
+                  <br><br>
+                </fieldset>
+
+                <hr>
+                <h2 style="color:tomato">Customer Inputs (Advanced)</h2>
+
+                <fieldset>
+                  <legend>Compute Details</legend>
+                  Server Cores:
+                  <input type="text" class="userInputAdvancedS2" name="serverCores" value="40"><br>
+                  <br><br>
+                </fieldset>
+
+                <fieldset>
+                  <legend>DVX Details</legend>
+                  Expected Primary Data Reduction (existing):
+                  <input type="text" class="userInputAdvancedS2" name="expectedDataReduction" value="1"><br>
+                  Cloud DVX data reduction:
+                  <input type="text" class="userInputAdvancedS2" name="cloudDataReduction" value="1.00"><br>
+                  Cloud DVX net price (5TB/month):
+                  <input type="text" class="userInputAdvancedS2" name="cloudDVXNetPrice" value="$250"><br>
+                  <br><br>
+                </fieldset>
+
+              </div>
+            </div>
+
+
+
+
+              <hr>
+              <input type="submit" id="updateBtn" value="Update">
+            </form>
+
+
+
+        </div>
+
+
+
+
+        <div class="footer">
+          <p>Footer</p>
+        </div>
+
+
+
+
+  </section>
+
+  <!-- jQuery -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+
+
+  <script src="js/assumptions.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/helpers.js"></script>
+  <script src="js/model.js"></script>
+  <script src="js/view.js"></script>
+  <script src="js/backup.js"></script>
+  <script src="js/cloud.js"></script>
+  <script src="js/tape.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
