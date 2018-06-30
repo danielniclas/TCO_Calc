@@ -27,6 +27,8 @@
             <div class="row">
             <div class="col-sm-6">
 
+              <!--BASIC | Site 01-->
+
               <hr>
               <h2 style="color:tomato">Customer Inputs (Basic)</h2>
               <h4 style="color:tomato">Site 1</h4>
@@ -80,15 +82,32 @@
                 <br><br>
               </fieldset>
 
+              <!--ADVANCED | Site 01    ADVANCED | Site 01    ADVANCED | Site 01   ADVANCED | Site 01  -->
+
               <hr>
               <h2 style="color:tomato">Customer Inputs (Advanced)</h2>
 
               <fieldset>
                 <legend>Compute Details</legend>
+                Server Base Cost:
+                <input type="text" class="userInputAdvancedS1" name="serverBaseCost" value="2500"><br>
                 Server Cores:
                 <input type="text" class="userInputAdvancedS1" name="serverCores" value="40"><br>
+                vCPU to Core Oversubscription:
+                <input type="text" class="userInputAdvancedS1" name="vCPUcoreOversubscription" value="8"><br>
+                Server RAM (GB):
+                <input type="text" class="userInputAdvancedS1" name="serverRAM" value="512"><br>
+                Server CPU ($/core):
+                <input type="text" class="userInputAdvancedS1" name="serverCPUDollar" value="150"><br>
+                Server RAM ($/GB):
+                <input type="text" class="userInputAdvancedS1" name="serverRAMDollar" value="31"><br>
+                Server Cache ($/GB):
+                <input type="text" class="userInputAdvancedS1" name="serverCacheDollar" value="0.50"><br>
+                Server Cache Size:
+                <input type="text" class="userInputAdvancedS1" name="serverCacheSize" value="960"><br>
                 <br><br>
               </fieldset>
+
 
               <fieldset>
                 <legend>DVX Details</legend>
@@ -96,8 +115,21 @@
                 <input type="text" class="userInputAdvancedS1" name="expectedDataReduction" value="4"><br>
                 Cloud DVX data reduction:
                 <input type="text" class="userInputAdvancedS1" name="cloudDataReduction" value="1.00"><br>
+                DVX Host CPU Consumption:
+                <input type="text" class="userInputAdvancedS1" name="DVXhostCpuConsumption" value="0%"><br>
+                Data Node Usable Capacity:
+                <input type="text" class="userInputAdvancedS1" name="dataNodeUsableCapacity" value="30000"><br>
                 Cloud DVX net price (5TB/month):
                 <input type="text" class="userInputAdvancedS1" name="cloudDVXNetPrice" value="$250"><br>
+                DVX max cache per host usable:
+                <input type="text" class="userInputAdvancedS1" name="DVXmaxCachePerHost" value="16000"><br>
+                <br><br>
+              </fieldset>
+
+              <fieldset>
+                <legend>Backup Storage Details</legend>
+                Backup Host CPU Consumption:
+                <input type="text" class="userInputAdvancedS1" name="backupHostCpuConsumption" value="0%"><br>
                 <br><br>
               </fieldset>
 
@@ -105,6 +137,8 @@
 
 
               <div class="col-sm-6">
+
+                <!--BASIC | Site 02-->
 
                 <hr>
                 <h2 style="color:tomato">Customer Inputs (Basic)</h2>
@@ -159,13 +193,29 @@
                   <br><br>
                 </fieldset>
 
+                <!--ADVANCED | Site 02   ADVANCED | Site 02   ADVANCED | Site 02   ADVANCED | Site 02-->
+
                 <hr>
                 <h2 style="color:tomato">Customer Inputs (Advanced)</h2>
 
                 <fieldset>
                   <legend>Compute Details</legend>
+                  Server Base Cost:
+                  <input type="text" class="userInputAdvancedS2" name="serverBaseCost" value="2500"><br>
                   Server Cores:
                   <input type="text" class="userInputAdvancedS2" name="serverCores" value="40"><br>
+                  vCPU to Core Oversubscription:
+                  <input type="text" class="userInputAdvancedS2" name="vCPUcoreOversubscription" value="8"><br>
+                  Server RAM (GB):
+                  <input type="text" class="userInputAdvancedS2" name="serverRAM" value="512"><br>
+                  Server CPU ($/core):
+                  <input type="text" class="userInputAdvancedS2" name="serverCPUDollar" value="150"><br>
+                  Server RAM ($/GB):
+                  <input type="text" class="userInputAdvancedS2" name="serverRAMDollar" value="31"><br>
+                  Server Cache ($/GB):
+                  <input type="text" class="userInputAdvancedS2" name="serverCacheDollar" value="0.50"><br>
+                  Server Cache Size:
+                  <input type="text" class="userInputAdvancedS2" name="serverCacheSize" value="960"><br>
                   <br><br>
                 </fieldset>
 
@@ -175,8 +225,21 @@
                   <input type="text" class="userInputAdvancedS2" name="expectedDataReduction" value="1"><br>
                   Cloud DVX data reduction:
                   <input type="text" class="userInputAdvancedS2" name="cloudDataReduction" value="1.00"><br>
+                  DVX Host CPU Consumption:
+                  <input type="text" class="userInputAdvancedS2" name="DVXhostCpuConsumption" value="0%"><br>
+                  Data Node Usable Capacity:
+                  <input type="text" class="userInputAdvancedS2" name="dataNodeUsableCapacity" value="30000"><br>
                   Cloud DVX net price (5TB/month):
                   <input type="text" class="userInputAdvancedS2" name="cloudDVXNetPrice" value="$250"><br>
+                  DVX max cache per host usable:
+                  <input type="text" class="userInputAdvancedS2" name="DVXmaxCachePerHost" value="16000"><br>
+                  <br><br>
+                </fieldset>
+
+                <fieldset>
+                  <legend>Backup Storage Details</legend>
+                  Backup Host CPU Consumption:
+                  <input type="text" class="userInputAdvancedS2" name="backupHostCpuConsumption" value="0%"><br>
                   <br><br>
                 </fieldset>
 

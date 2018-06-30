@@ -190,11 +190,16 @@ backup.backupMonthlyCapacityGrowthBreakdownSite02 = function() {       //  <<  G
 
   backup.backupOutput = function () {
 
-    let growthArray01 = model.getLocalStore ('backupGrowthArray01');
+    let growthArray01 = model.getLocalStore ('backupGrowthArray01'),
+      growthArray02 = model.getLocalStore('backupGrowthArray02');
 
     backup.outputObject.site01['year01'] = growthArray01[11][9];
     backup.outputObject.site01['year02'] = growthArray01[23][9];
     backup.outputObject.site01['year03'] = growthArray01[35][9];
+
+    backup.outputObject.site02['year01'] = growthArray02[11][9];
+    backup.outputObject.site02['year02'] = growthArray02[23][9];
+    backup.outputObject.site02['year03'] = growthArray02[35][9];
 
     console.log('BACKUP Output Object (GREEN BOX):');
     console.log(backup.outputObject);                                         //  Backup Output (GREEN BOX)

@@ -8,13 +8,12 @@ let model = {};
 model.init = function() {
 
   if( false === model.checkLocalStore() ) {
-      model.updateLocalStore( data, 'vanillaData' );
+      model.updateLocalStore( data, 'vanillaData' );    //  Add 'data' object from data.js to Local Store
   }
+  model.updateLocalStore( data, 'vanillaData' );        //  Add 'data' object from data.js to Local Store
 
-  model.updateLocalStore( data, 'vanillaData' );
 
-
-  model.userInputBasic = [        //  Properties for 'Basic Customer Input' Object S1/S2
+  model.userInputBasic = [        //  PROPERTIES for 'Basic Customer INPUT' Object - model.userInputBasicS1 and S2
     'primary_stor',
     'secondary_stor',
     'tape',
@@ -37,13 +36,31 @@ model.init = function() {
   //  IMPORTANT NOTICE:  To add additional Advanced Inputs:
   //  Add the name to the array below
   //  Add the element to the HTML with the appropriate CSS classes
+  //  MUST BE IN CORRECT ORDER !!!        - Same order as html form inputs
+  //  MUST BE SAME INPUTS AS ON HTML !!!  - Same order as html form inputs
   //  That is it!  The rest is automatic
 
-  model.userInputAdvanced = [     //  Properties for 'Advanced Customer Input' Object S1/S2
+  //  Only Properties included in the HTML form:
+  model.userInputAdvanced = [     //  PROPERTIES for 'Advanced Customer INPUT' Object -  model.userInputAdvancedS1 and S2
+
+                                        //  < Compute Details
+    'server_base_cost',
     'server_cores',
+    'vCPU_core_oversubscription',
+    'server_RAM',
+    'server_CPU_dollar',
+    'server_RAM_dollar',
+    'server_cache_dollar',
+    'server_cache_size',
+                                        //  < DVX Details
     'exp_data_reduction_DVX',
     'cloud_data_reduction_ratio',
-    'cloud_DVX_net_price'
+    'DVX_host_cpu_consumption',
+    'data_node_usable_capacity',
+    'cloud_DVX_net_price',
+    'DVX_max_cache_per_host',
+                                        //  < Backup Storage Details
+    'backup_host_cpu_consumption'
   ];
 
 
@@ -53,6 +70,14 @@ model.init = function() {
   model.userInputAdvancedS2 = {};   //  Start - Advanced Customer Input Site 2
 
 };
+
+
+
+//  Generate all available USER INPUT VALUE OBJECTS and add to LOCAL STORAGE:
+//  model.userInputBasicS1 = {};
+//  model.userInputAdvancedS1 = {};
+//  model.userInputBasicS2 = {};
+//  model.userInputAdvancedS2 = {};
 
 model.updateUserInputs = function(inputType, site) {                  //  User Inputs > LOCAL STORAGE.
 
@@ -225,162 +250,6 @@ model.updateContent = function( contentObj ) {
   model.updateLocalStore( store );
 
 };
-
-
-
-
-
-// /**
-//  * Get a single post or page based on the url slug
-//  *
-//  * @param {string} slug The slug for the post
-//  * @return {Object} contentObj Single post or page
-//  *
-//  */
-// model.getContent = function( slug ) {
-//
-//   var contentObj = model.getPost( slug );
-//
-//
-//   // If post is not found, search pages
-//   if( null === contentObj ) {
-//     contentObj = model.getPage( slug );
-//   }
-//
-//   // If page not found, assign 404 error
-//   if( null === contentObj ) {
-//     contentObj = {
-//         title: '404 Error',
-//         content: 'Content not found'
-//     }
-//   }
-//
-//   return contentObj;
-//
-// };
-//
-//
-// /**
-//  * Get a single post or page based on the current url
-//  *
-//  * @return {Object} contentObj Single post or page
-//  *
-//  */
-// model.getCurrentContent = function() {
-//
-//   var slug = router.getSlug(),
-//       contentObj = model.getContent( slug );
-//
-//   return contentObj;
-//
-// };
-//
-//
-// /**
-//  * Gets posts from local store
-//  *
-//  * @return {Object[]} posts Array of posts
-//  */
-// model.getPosts = function() {
-//
-//   var posts = model.getLocalStore().posts;
-//   return posts;
-//
-// }
-//
-// /**
-//  * Get a single post based on url slug
-//  *
-//  * @param {string} slug The slug for the post
-//  * @return {Object} post Single post
-//  *
-//  */
-// model.getPost = function( slug ) {
-//
-//   var posts = model.getLocalStore().posts;
-//
-//   // Get the post from store based on the slug
-//   for( i = 0, max = posts.length; i < max; i++  ) {
-//
-//     if( slug === posts[i].slug ) {
-//       return posts[i];
-//     }
-//
-//   }
-//
-//   return null;
-//
-// }
-//
-// /**
-//  * Gets pages from local store
-//  *
-//  * @return {Object[]} pages Array of page objects
-//  */
-// model.getPages = function() {
-//
-//   var pages = model.getLocalStore().pages;
-//   return pages;
-//
-// }
-//
-// /**
-//  * Get a single page based on url slug
-//  *
-//  * @param {string} slug The slug for the page
-//  * @return {Object} page  Single page object
-//  *
-//  */
-// model.getPage = function( slug ) {
-//
-//   var pages = model.getLocalStore().pages;
-//
-//   if( null === slug ) slug = 'home';
-//
-//   // Get the post from store based on the slug
-//   for( i = 0, max = pages.length; i < max; i++  ) {
-//
-//    if( slug === pages[i].slug ) {
-//      return pages[i];
-//    }
-//
-//   }
-//
-//   return null;
-//
-// }
-//
-//
-
-//
-//
-// /**
-//  * Updates if editor is hidden
-//  *
-//  * @param {Boolean} hidden If editor is hidden or not
-//  */
-// model.updateEditorHidden = function( isHidden ) {
-//
-//   var store = model.getLocalStore();
-//
-//   store.settings.editorHidden = isHidden;
-//   model.updateLocalStore( store );
-//
-// };
-//
-// /**
-//  * Gets local store setting for if editor is hidden
-//  *
-//  * @return {Boolean} hidden A boolean for if editor is hidden
-//  */
-// model.getEditorHidden = function() {
-//
-//   var store = model.getLocalStore();
-//
-//   return store.settings.editorHidden;
-//
-// };
-//
 
 
 
