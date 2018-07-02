@@ -18,6 +18,25 @@
 
         <header class="page-header">
           <h1 id="siteName"><a href="#">TCO Calc</a></h1>
+
+          <h1 id="myEl"></h1>
+
+          <span id="valBox"></span>
+          <input id="inputRange" type="range" min="1" max="10" step="1" value="5"
+                 oninput="showVal(this.value)" onchange="showVal(this.value)">
+
+
+          <script>
+            let myEl = document.getElementById('myEl');
+            let myInput = document.getElementById('inputRange');
+            myEl.innerHTML = myInput.value;
+
+            function showVal (value) {
+              myEl.innerHTML =  value;
+            }
+          </script>
+
+
         </header>
 
 
@@ -30,8 +49,8 @@
               <!--BASIC | Site 01-->
 
               <hr>
-              <h2 style="color:tomato">Customer Inputs (Basic)</h2>
-              <h4 style="color:tomato">Site 1</h4>
+              <h2 class='tomato'>Customer Inputs (Basic)</h2>
+              <h4 class='tomato'>Site 1</h4>
 
               <fieldset>
                 <legend>Deployment Model</legend>
@@ -85,7 +104,7 @@
               <!--ADVANCED | Site 01    ADVANCED | Site 01    ADVANCED | Site 01   ADVANCED | Site 01  -->
 
               <hr>
-              <h2 style="color:tomato">Customer Inputs (Advanced)</h2>
+              <h2 class='tomato'>Customer Inputs (Advanced)</h2>
 
               <fieldset>
                 <legend>Compute Details</legend>
@@ -246,16 +265,70 @@
               </div>
             </div>
 
-
-
-
               <hr>
               <input type="submit" id="updateBtn" value="Update">
+              <hr>
             </form>
+
+
+        </div>
+
+    <div class="container" id="data-display">
+      <div class="row">
+
+
+        <div class="col-sm-6">
+        <h2 class='tomato'> Site Calculations Output Data:</h2>
+        <h4 class="tomato">Resources Required | Site 1</h4>
+
+
+          <table>
+            <tr>
+              <th>Infrastructure Resources</th>
+              <th>Year 1</th>
+              <th>Year 2</th>
+              <th>Year 3</th>
+            </tr>
+            <tr>
+              <td>VMs</td>
+              <td class="scVMs"></td>
+              <td class="scVMs"></td>
+              <td class="scVMs"></td>
+            </tr>
+            <tr>
+              <td>Total vCPUs Required</td>
+              <td class="totalVCPUs"></td>
+              <td class="totalVCPUs"></td>
+              <td class="totalVCPUs"></td>
+            </tr>
+            <tr>
+              <td>Total RAM Required</td>
+              <td class="totalRAM"></td>
+              <td class="totalRAM"></td>
+              <td class="totalRAM"></td>
+            </tr>
+            <tr>
+              <td>Primary Effective Capacity Required</td>
+              <td class="primaryCapacity"></td>
+              <td class="primaryCapacity"></td>
+              <td class="primaryCapacity"></td>
+            </tr>
+          </table>
+
+        </div>
+
+        <div class="col-sm-6">
+
+
 
 
 
         </div>
+
+      </div>
+
+
+    </div>
 
 
 
@@ -282,6 +355,7 @@
   <script src="js/cloud.js"></script>
   <script src="js/tape.js"></script>
   <script src="js/site.js"></script>
+  <script src="js/assert.js"></script>
   <script src="js/app.js"></script>
 
 </body>

@@ -20,12 +20,16 @@ datriumTCO.init = function() {
   site.init();
   view.init();
 
+  assert.init();
+
   helpers.addFormListeners();
 
 };
 
 
 datriumTCO.functionManager = function (){
+
+  console.time('FunctionManager');
 
   assumptions.collectData();
 
@@ -53,8 +57,22 @@ datriumTCO.functionManager = function (){
 
   site.resourcesRequired();
 
+  view.render();
+
+  console.timeEnd('FunctionManager');
+};
 
 
+datriumTCO.assertionTests = function(){
+
+  let backupOutput = model.getLocalStore('backup_output');       //  Backup Output - GREEN BOX
+  assert.objectsEqual(backupOutput, assert.backupGreenBoxObject, 'BACKUP - Backup Output > GREEN BOX');
+
+  let cloudOutput = model.getLocalStore('cloudOutputObject');   //  Cloud Output - GREEN BOX
+  assert.objectsEqual(cloudOutput, assert.cloudGreenBoxObject, 'CLOUD - Cloud Output > GREEN BOX');
+
+  let tapeOutput = model.getLocalStore('tapeOutputObject');   //    Tape Output - GREEN BOX
+  assert.objectsEqual(tapeOutput, assert.tapeGreenBoxObject, 'TAPE - Tape Output > GREEN BOX');
 
 };
 
@@ -62,4 +80,4 @@ datriumTCO.functionManager = function (){
 datriumTCO.init();
 
 
-// End..
+// End.

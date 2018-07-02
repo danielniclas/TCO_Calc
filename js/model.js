@@ -7,10 +7,10 @@ let model = {};
 
 model.init = function() {
 
-  if( false === model.checkLocalStore() ) {
-      model.updateLocalStore( data, 'vanillaData' );    //  Add 'data' object from data.js to Local Store
-  }
-  model.updateLocalStore( data, 'vanillaData' );        //  Add 'data' object from data.js to Local Store
+  // if( false === model.checkLocalStore() ) {
+  //     model.updateLocalStore( data, 'myData' );
+  // }
+  // model.updateLocalStore( data, 'myData' );        //  Add 'data' object from data.js to Local Store
 
 
   model.userInputBasic = [        //  PROPERTIES for 'Basic Customer INPUT' Object - model.userInputBasicS1 and S2
@@ -165,9 +165,7 @@ model.updateAdvancedUserInputs = function() {                 //  ADVANCED User 
 //  * @return {Boolean} Boolean value for if local store already exists
 //  */
 model.checkLocalStore = function() {
-
   let store = model.getLocalStore('vanillaData');
-
   if ( null === store ) {
     return false;
   } else {
@@ -182,27 +180,18 @@ model.checkLocalStore = function() {
 //  * @return {Object} store Native JavaScript object from local store
 //  */
 model.getLocalStore = function(storeName) {
-
-  let store = JSON.parse( localStorage.getItem( storeName ) );
-
-  return store;
-
+  return JSON.parse( localStorage.getItem( storeName ) );
 };
-//
+
 // /**
 //  * Saves temporary store to local storage.
 //  *
 //  * @param {Object} store Native JavaScript object with site data
 //  */
 
-
 model.updateLocalStore = function( store, storeName ) {
-
-  // localStorage.setItem( 'vanillaPress', JSON.stringify( store ) );
   localStorage.setItem( storeName, JSON.stringify( store ) );
-
 };
-
 
 
 /**
@@ -210,46 +199,10 @@ model.updateLocalStore = function( store, storeName ) {
  *
  */
 model.removeLocalStore = function() {
-
   localStorage.removeItem( 'vanillaPress' );
-
 };
 
 
-/**
- * Updates post or page in local store
- *
- * @param {Object} contentObj Content object to update
- */
-model.updateContent = function( contentObj ) {
-
-  var store = model.getLocalStore(),
-    date = new Date();
-
-  if( 'post' === contentObj.type ) {
-    store.posts.forEach( function( post ) {
-      if( contentObj.id === post.id ) {
-        post.title = contentObj.title;
-        post.content = contentObj.content;
-        post.modified = date.toISOString();
-      }
-    });
-  }
-
-  if ( 'page' === contentObj.type ) {
-    store.pages.forEach( function( page ) {
-      if( contentObj.id === page.id ) {
-        page.title = contentObj.title;
-        page.content = contentObj.content;
-        page.modified = date.toISOString();
-      }
-    });
-  }
-
-
-  model.updateLocalStore( store );
-
-};
 
 
 

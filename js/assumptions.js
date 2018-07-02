@@ -24,12 +24,12 @@ assumptions.collectData = function(){
   assumptions.cloudDVXInputs.cloudDVXGetMultFactor = 5;
   assumptions.cloudDVXInputs.cloudDVXSpaceOverprovisioning = '10%';
 
-  console.log('Assumptions AWS Const Inputs:');
-  console.log(assumptions.awsCostInputs);
+  // console.log('Assumptions AWS Const Inputs:');
+  // console.log(assumptions.awsCostInputs);
   model.updateLocalStore(assumptions.awsCostInputs,'assumptionsAWS');
 
-  console.log('Assumptions Cloud DVX Inputs (ASSUMPTIONS):');
-  console.log(assumptions.cloudDVXInputs);
+  // console.log('Assumptions Cloud DVX Inputs (ASSUMPTIONS):');
+  // console.log(assumptions.cloudDVXInputs);
   model.updateLocalStore(assumptions.cloudDVXInputs,'assumptionsCloud');
 
 };
