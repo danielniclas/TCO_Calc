@@ -2,7 +2,7 @@
 /**
  * Main JSON object of posts, pages and settings
  */
-var stuff =
+let stuff =
     [
 
     ],

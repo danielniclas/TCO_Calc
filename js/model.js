@@ -43,24 +43,34 @@ model.init = function() {
   //  Only Properties included in the HTML form:
   model.userInputAdvanced = [     //  PROPERTIES for 'Advanced Customer INPUT' Object -  model.userInputAdvancedS1 and S2
 
+                                        //  < Operating Costs
+    'dollar_ru_year_data_center',       //  31
                                         //  < Compute Details
-    'server_base_cost',
-    'server_cores',
-    'vCPU_core_oversubscription',
-    'server_RAM',
-    'server_CPU_dollar',
-    'server_RAM_dollar',
-    'server_cache_dollar',
-    'server_cache_size',
+    'server_base_cost',                 //  34
+    'server_cores',                     //  35
+    'vCPU_core_oversubscription',       //  36
+    'server_RAM',                       //  37
+    'server_CPU_dollar',                //  38
+    'server_RAM_dollar',                //  39
+    'server_cache_dollar',              //  40
+    'server_cache_size',                //  41
+    'server_rus',                       //  42
+    'server_network_ports',             //  43
                                         //  < DVX Details
-    'exp_data_reduction_DVX',
-    'cloud_data_reduction_ratio',
-    'DVX_host_cpu_consumption',
-    'data_node_usable_capacity',
-    'cloud_DVX_net_price',
-    'DVX_max_cache_per_host',
+    'exp_data_reduction_DVX',           //  46
+    'cloud_data_reduction_ratio',       //  47
+    'DVX_host_cpu_consumption',         //  48
+    'data_node_usable_capacity',        //  49
+    'DVX_host_license_cost',            //  52
+    'data_node_cost',                   //  55
+    'cloud_DVX_net_price',              //  58
+    'DVX_data_node_rus',                //  59
+    'DVX_data_node_ports',              //  60
+    'DVX_max_cache_per_host',           //  61
                                         //  < Backup Storage Details
-    'backup_host_cpu_consumption'
+    'backup_host_cpu_consumption',      //  76
+                                        //  < Tape Storage Details
+    'network_cost_port'                //  89
   ];
 
 

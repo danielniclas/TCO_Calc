@@ -174,6 +174,30 @@ site.resourcesRequired = function () {
   site.siteCalcsS1.computeNodeHWPriceDVX.year02 = ((Number(advancedDataS1.server_base_cost) + (advancedDataS1.server_cores * advancedDataS1.server_CPU_dollar) + (advancedDataS1.server_RAM * advancedDataS1.server_RAM_dollar) + (site.siteCalcsS1.flashDevicesRequiredPerComputeNode.year02 * advancedDataS1.server_cache_dollar * advancedDataS1.server_cache_size))) * site.siteCalcsS1.computeNodesRequired.year02;
   site.siteCalcsS1.computeNodeHWPriceDVX.year03 = ((Number(advancedDataS1.server_base_cost) + (advancedDataS1.server_cores * advancedDataS1.server_CPU_dollar) + (advancedDataS1.server_RAM * advancedDataS1.server_RAM_dollar) + (site.siteCalcsS1.flashDevicesRequiredPerComputeNode.year03 * advancedDataS1.server_cache_dollar * advancedDataS1.server_cache_size))) * site.siteCalcsS1.computeNodesRequired.year03;
 
+  site.siteCalcsS1.computeNodeFlashPrice.year01 = site.siteCalcsS1.computeNodesRequired.year01 * site.siteCalcsS1.flashDevicesRequiredPerComputeNode.year01 * advancedDataS1.server_cache_dollar * advancedDataS1.server_cache_size;
+  site.siteCalcsS1.computeNodeFlashPrice.year02 = site.siteCalcsS1.computeNodesRequired.year02 * site.siteCalcsS1.flashDevicesRequiredPerComputeNode.year02 * advancedDataS1.server_cache_dollar * advancedDataS1.server_cache_size;
+  site.siteCalcsS1.computeNodeFlashPrice.year03 = site.siteCalcsS1.computeNodesRequired.year03 * site.siteCalcsS1.flashDevicesRequiredPerComputeNode.year03 * advancedDataS1.server_cache_dollar * advancedDataS1.server_cache_size;
+
+  site.siteCalcsS1.computeNodeSWPrice.year01 = advancedDataS1.DVX_host_license_cost * site.siteCalcsS1.computeNodesRequired.year01;
+  site.siteCalcsS1.computeNodeSWPrice.year02 = advancedDataS1.DVX_host_license_cost * site.siteCalcsS1.computeNodesRequired.year02;
+  site.siteCalcsS1.computeNodeSWPrice.year03 = advancedDataS1.DVX_host_license_cost * site.siteCalcsS1.computeNodesRequired.year03;
+
+  site.siteCalcsS1.dataNodePricePrimary.year01 = site.siteCalcsS1.dataNodesRequiredPrimary.year01 * advancedDataS1.data_node_cost;
+  site.siteCalcsS1.dataNodePricePrimary.year02 = site.siteCalcsS1.dataNodesRequiredPrimary.year02 *advancedDataS1.data_node_cost;
+  site.siteCalcsS1.dataNodePricePrimary.year03 = site.siteCalcsS1.dataNodesRequiredPrimary.year03 * advancedDataS1.data_node_cost;
+
+  site.siteCalcsS1.dataNodePriceBackup.year01 = site.siteCalcsS1.dataNodesRequiredBackup.year01 * advancedDataS1.data_node_cost;
+  site.siteCalcsS1.dataNodePriceBackup.year02 = site.siteCalcsS1.dataNodesRequiredBackup.year02 * advancedDataS1.data_node_cost;
+  site.siteCalcsS1.dataNodePriceBackup.year03 = site.siteCalcsS1.dataNodesRequiredBackup.year03 * advancedDataS1.data_node_cost;
+
+  site.siteCalcsS1.dVXRackCostsPrimary.year01 = (site.siteCalcsS1.computeNodesRequired.year01 * advancedDataS1.server_rus + site.siteCalcsS1.dataNodesRequiredPrimary.year01 * advancedDataS1.DVX_data_node_rus) * advancedDataS1.dollar_ru_year_data_center;
+  site.siteCalcsS1.dVXRackCostsPrimary.year02 = (site.siteCalcsS1.computeNodesRequired.year02 * advancedDataS1.server_rus + site.siteCalcsS1.dataNodesRequiredPrimary.year02 * advancedDataS1.DVX_data_node_rus) * advancedDataS1.dollar_ru_year_data_center;
+  site.siteCalcsS1.dVXRackCostsPrimary.year03 = (site.siteCalcsS1.computeNodesRequired.year03 * advancedDataS1.server_rus + site.siteCalcsS1.dataNodesRequiredPrimary.year03 * advancedDataS1.DVX_data_node_rus) * advancedDataS1.dollar_ru_year_data_center;
+
+  site.siteCalcsS1.dVXNetworkCostsPrimary.year01 = advancedDataS1.network_cost_port * (site.siteCalcsS1.computeNodesRequired.year01 * advancedDataS1.server_network_ports + site.siteCalcsS1.dataNodesRequiredPrimary.year01 * advancedDataS1.DVX_data_node_ports);
+  site.siteCalcsS1.dVXNetworkCostsPrimary.year02 = advancedDataS1.network_cost_port * (site.siteCalcsS1.computeNodesRequired.year02 * advancedDataS1.server_network_ports + site.siteCalcsS1.dataNodesRequiredPrimary.year02 * advancedDataS1.DVX_data_node_ports);
+  site.siteCalcsS1.dVXNetworkCostsPrimary.year03 = advancedDataS1.network_cost_port * (site.siteCalcsS1.computeNodesRequired.year03 * advancedDataS1.server_network_ports + site.siteCalcsS1.dataNodesRequiredPrimary.year03 * advancedDataS1.DVX_data_node_ports);
+
 
 
   console.log('SITE CALCULATIONS (YELLOW) S1');
@@ -260,6 +284,28 @@ site.resourcesRequired = function () {
   site.siteCalcsS2.computeNodeHWPriceDVX.year01 = ((Number(advancedDataS2.server_base_cost) + (advancedDataS2.server_cores * advancedDataS2.server_CPU_dollar) + (advancedDataS2.server_RAM * advancedDataS2.server_RAM_dollar) + (site.siteCalcsS2.flashDevicesRequiredPerComputeNode.year01 * advancedDataS2.server_cache_dollar * advancedDataS2.server_cache_size))) * site.siteCalcsS2.computeNodesRequired.year01;
   site.siteCalcsS2.computeNodeHWPriceDVX.year02 = ((Number(advancedDataS2.server_base_cost) + (advancedDataS2.server_cores * advancedDataS2.server_CPU_dollar) + (advancedDataS2.server_RAM * advancedDataS2.server_RAM_dollar) + (site.siteCalcsS2.flashDevicesRequiredPerComputeNode.year02 * advancedDataS2.server_cache_dollar * advancedDataS2.server_cache_size))) * site.siteCalcsS2.computeNodesRequired.year02;
   site.siteCalcsS2.computeNodeHWPriceDVX.year03 = ((Number(advancedDataS2.server_base_cost) + (advancedDataS2.server_cores * advancedDataS2.server_CPU_dollar) + (advancedDataS2.server_RAM * advancedDataS2.server_RAM_dollar) + (site.siteCalcsS2.flashDevicesRequiredPerComputeNode.year03 * advancedDataS2.server_cache_dollar * advancedDataS2.server_cache_size))) * site.siteCalcsS2.computeNodesRequired.year03;
+
+  site.siteCalcsS2.computeNodeFlashPrice.year01 = site.siteCalcsS2.computeNodesRequired.year01 * site.siteCalcsS2.flashDevicesRequiredPerComputeNode.year01 * advancedDataS2.server_cache_dollar * advancedDataS2.server_cache_size;
+  site.siteCalcsS2.computeNodeFlashPrice.year02 = site.siteCalcsS2.computeNodesRequired.year02 * site.siteCalcsS2.flashDevicesRequiredPerComputeNode.year02 * advancedDataS2.server_cache_dollar * advancedDataS2.server_cache_size;
+  site.siteCalcsS2.computeNodeFlashPrice.year03 = site.siteCalcsS2.computeNodesRequired.year03 * site.siteCalcsS2.flashDevicesRequiredPerComputeNode.year03 * advancedDataS2.server_cache_dollar * advancedDataS2.server_cache_size;
+
+  site.siteCalcsS2.computeNodeSWPrice.year01 = advancedDataS2.DVX_host_license_cost * site.siteCalcsS2.computeNodesRequired.year01;
+  site.siteCalcsS2.computeNodeSWPrice.year02 = advancedDataS2.DVX_host_license_cost * site.siteCalcsS2.computeNodesRequired.year02;
+  site.siteCalcsS2.computeNodeSWPrice.year03 = advancedDataS2.DVX_host_license_cost * site.siteCalcsS2.computeNodesRequired.year03;
+
+  site.siteCalcsS2.dataNodePricePrimary.year01 = site.siteCalcsS2.dataNodesRequiredPrimary.year01 * advancedDataS2.data_node_cost;
+  site.siteCalcsS2.dataNodePricePrimary.year02 = site.siteCalcsS2.dataNodesRequiredPrimary.year02 *advancedDataS2.data_node_cost;
+  site.siteCalcsS2.dataNodePricePrimary.year03 = site.siteCalcsS2.dataNodesRequiredPrimary.year03 * advancedDataS2.data_node_cost;
+
+  site.siteCalcsS2.dataNodePriceBackup.year01 = site.siteCalcsS2.dataNodesRequiredBackup.year01 * advancedDataS2.data_node_cost;
+  site.siteCalcsS2.dataNodePriceBackup.year02 = site.siteCalcsS2.dataNodesRequiredBackup.year02 *advancedDataS2.data_node_cost;
+  site.siteCalcsS2.dataNodePriceBackup.year03 = site.siteCalcsS2.dataNodesRequiredBackup.year03 * advancedDataS2.data_node_cost;
+
+  site.siteCalcsS2.dVXRackCostsPrimary.year01 = (site.siteCalcsS2.computeNodesRequired.year01 * advancedDataS2.server_rus + site.siteCalcsS2.dataNodesRequiredPrimary.year01 * advancedDataS2.DVX_data_node_rus) * advancedDataS2.dollar_ru_year_data_center;
+  site.siteCalcsS2.dVXRackCostsPrimary.year02 = (site.siteCalcsS2.computeNodesRequired.year02 * advancedDataS2.server_rus + site.siteCalcsS2.dataNodesRequiredPrimary.year02 * advancedDataS2.DVX_data_node_rus) * advancedDataS2.dollar_ru_year_data_center;
+  site.siteCalcsS2.dVXRackCostsPrimary.year03 = (site.siteCalcsS2.computeNodesRequired.year03 * advancedDataS2.server_rus + site.siteCalcsS2.dataNodesRequiredPrimary.year03 * advancedDataS2.DVX_data_node_rus) * advancedDataS2.dollar_ru_year_data_center;
+
+
 
 
   console.log('SITE CALCULATIONS (YELLOW) S2');

@@ -37,7 +37,7 @@ helpers.currencyToNumber = function(currencyString){
   return Number(currencyString.replace(/[^0-9\.-]+/g,""));
 };
 
-helpers.addFormListeners = function (){                    //  Update Button Event Listeners
+helpers.addFormListeners = function (){                    //  Update Button Event Listeners - EVENT HANDLERS
   let updateBtn = helpers.getUpdateBtnEl();
   updateBtn.addEventListener('click', datriumTCO.functionManager, false);
   updateBtn.addEventListener('click', datriumTCO.assertionTests, false);
