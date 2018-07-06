@@ -43,6 +43,8 @@ helpers.addFormListeners = function (){                    //  Update Button Eve
   updateBtn.addEventListener('click', datriumTCO.assertionTests, false);
 };
 
+
+
 //  Site Calculations - 3 Year Range - Add Data to Elements:
 
 helpers.siteCalcDataEntry = function (elementList, content){
@@ -50,7 +52,6 @@ helpers.siteCalcDataEntry = function (elementList, content){
     elementList[i].innerHTML = content['year0' + (i+1)];
   }
 };
-
 
 
 //  Gather Site Calc Table Rows Site 1 - DOM Elements:

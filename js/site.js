@@ -21,7 +21,7 @@ site.init = function () {
     'backupUsableCapacityRequiredDVX',
     'dataNodesRequiredPrimary',
     'dataNodesRequiredBackup',
-    'computeNodeHWPriceDVX',      // < 6-29-18
+    'computeNodeHWPriceDVX',                //  26
     'computeNodeFlashPrice',
     'computeNodeSWPrice',
     'dataNodePricePrimary',
@@ -38,12 +38,12 @@ site.init = function () {
     'arrayPrimaryUsableCapacityRequiredDedup',
     'computeNodesRequiredArrays',
     'arraysRequiredForPrimaryStorage',
-    'backupUsableCapacityRequireARRAY',
+    'backupUsableCapacityRequiredARRAY',
     'backupSystemsRequired',
     'tapeUsableCapacityRequired',
     'tapeSystemsRequired',
     'arrayPrice',
-    'computeNodeHWPriceArray',
+    'computeNodeHWPriceArray',              //  50
     'backupPrice',
     'tapePrice',
     'offsiteTapeRestorePrice',
@@ -83,13 +83,15 @@ site.init = function () {
 
 };
 
-site.resourcesRequired = function () {
+site.siteResourcesAll = function () {
 
   let basicDataS1 = model.getLocalStore ('userInputBasicS1');               //  Get Basic User Inputs S1
   let advancedDataS1 = model.getLocalStore ('userInputAdvancedS1');         //  Get Advanced User Inputs S1
   let basicDataS2 = model.getLocalStore ('userInputBasicS2');               //  Get Basic User Inputs S2
   let advancedDataS2 = model.getLocalStore('userInputAdvancedS2');          //  Get Advanced User Inputs S2
-  let backupOutput = model.getLocalStore('backup_output');                  //  Get Backup Output - GREEN BOX
+  let backupOutput = model.getLocalStore('backupOutputObject');             //  Get Backup Output - GREEN BOX
+  let cloudOutput = model.getLocalStore('cloudOutputObject');               //  Get Cloud Output - GREEN BOX
+  let tapeOutput = model.getLocalStore('tapeOutputObject');                 //  Tape Output - GREEN BOX
 
   console.log('Inputs Basic S1:');
   console.log(basicDataS1);
@@ -198,13 +200,166 @@ site.resourcesRequired = function () {
   site.siteCalcsS1.dVXNetworkCostsPrimary.year02 = advancedDataS1.network_cost_port * (site.siteCalcsS1.computeNodesRequired.year02 * advancedDataS1.server_network_ports + site.siteCalcsS1.dataNodesRequiredPrimary.year02 * advancedDataS1.DVX_data_node_ports);
   site.siteCalcsS1.dVXNetworkCostsPrimary.year03 = advancedDataS1.network_cost_port * (site.siteCalcsS1.computeNodesRequired.year03 * advancedDataS1.server_network_ports + site.siteCalcsS1.dataNodesRequiredPrimary.year03 * advancedDataS1.DVX_data_node_ports);
 
+  //  Minor Calc Discrepency with Spread Sheet - Checked.  May be due to rounding on the Excel
+  site.siteCalcsS1.dVXAdminCostsPrimary.year01 = advancedDataS1.FTE_admin_dollar * (site.siteCalcsS1.dataNodesRequiredPrimary.year01 * advancedDataS1.data_node_usable_capacity);
+  site.siteCalcsS1.dVXAdminCostsPrimary.year02 = advancedDataS1.FTE_admin_dollar * (site.siteCalcsS1.dataNodesRequiredPrimary.year02 * advancedDataS1.data_node_usable_capacity);
+  site.siteCalcsS1.dVXAdminCostsPrimary.year03 = advancedDataS1.FTE_admin_dollar * (site.siteCalcsS1.dataNodesRequiredPrimary.year03 * advancedDataS1.data_node_usable_capacity);
 
+  site.siteCalcsS1.dVXPowerCoolingCostsPrimary.year01 = advancedDataS1.dollar_kWatt_data_center * (site.siteCalcsS1.computeNodesRequired.year01 * advancedDataS1.server_power_consumption + site.siteCalcsS1.dataNodesRequiredPrimary.year01 * advancedDataS1.DVX_DN_power_consumption);
+  site.siteCalcsS1.dVXPowerCoolingCostsPrimary.year02 = advancedDataS1.dollar_kWatt_data_center * (site.siteCalcsS1.computeNodesRequired.year02 * advancedDataS1.server_power_consumption + site.siteCalcsS1.dataNodesRequiredPrimary.year02 * advancedDataS1.DVX_DN_power_consumption);
+  site.siteCalcsS1.dVXPowerCoolingCostsPrimary.year03 = advancedDataS1.dollar_kWatt_data_center * (site.siteCalcsS1.computeNodesRequired.year03 * advancedDataS1.server_power_consumption + site.siteCalcsS1.dataNodesRequiredPrimary.year03 * advancedDataS1.DVX_DN_power_consumption);
+
+  site.siteCalcsS1.dVXRackCostsBackup.year01 = (site.siteCalcsS1.computeNodesRequired.year01 * advancedDataS1.server_rus + site.siteCalcsS1.dataNodesRequiredBackup.year01 * advancedDataS1.DVX_data_node_rus) * advancedDataS1.dollar_ru_year_data_center;
+  site.siteCalcsS1.dVXRackCostsBackup.year02 = (site.siteCalcsS1.computeNodesRequired.year02 * advancedDataS1.server_rus + site.siteCalcsS1.dataNodesRequiredBackup.year02 * advancedDataS1.DVX_data_node_rus) * advancedDataS1.dollar_ru_year_data_center;
+  site.siteCalcsS1.dVXRackCostsBackup.year03 = (site.siteCalcsS1.computeNodesRequired.year03 * advancedDataS1.server_rus + site.siteCalcsS1.dataNodesRequiredBackup.year03 * advancedDataS1.DVX_data_node_rus) * advancedDataS1.dollar_ru_year_data_center;
+
+  site.siteCalcsS1.dVXNetworkCostsBackup.year01 = advancedDataS1.network_cost_port * (site.siteCalcsS1.computeNodesRequired.year01 * advancedDataS1.server_network_ports + site.siteCalcsS1.dataNodesRequiredBackup.year01 * advancedDataS1.DVX_data_node_ports);
+  site.siteCalcsS1.dVXNetworkCostsBackup.year02 = advancedDataS1.network_cost_port * (site.siteCalcsS1.computeNodesRequired.year02 * advancedDataS1.server_network_ports + site.siteCalcsS1.dataNodesRequiredBackup.year02 * advancedDataS1.DVX_data_node_ports);
+  site.siteCalcsS1.dVXNetworkCostsBackup.year03 = advancedDataS1.network_cost_port * (site.siteCalcsS1.computeNodesRequired.year03 * advancedDataS1.server_network_ports + site.siteCalcsS1.dataNodesRequiredBackup.year03 * advancedDataS1.DVX_data_node_ports);
+
+  //  Minor Calc Discrepency with Spread Sheet - Checked.  May be due to rounding on the Excel
+  site.siteCalcsS1.dVXAdminCostsBackup.year01 = advancedDataS1.FTE_admin_dollar * (site.siteCalcsS1.dataNodesRequiredBackup.year01 * advancedDataS1.data_node_usable_capacity);
+  site.siteCalcsS1.dVXAdminCostsBackup.year02 = advancedDataS1.FTE_admin_dollar * (site.siteCalcsS1.dataNodesRequiredBackup.year02 * advancedDataS1.data_node_usable_capacity);
+  site.siteCalcsS1.dVXAdminCostsBackup.year03 = advancedDataS1.FTE_admin_dollar * (site.siteCalcsS1.dataNodesRequiredBackup.year03 * advancedDataS1.data_node_usable_capacity);
+
+  site.siteCalcsS1.dVXPowerCoolingCostsBackup.year01 = advancedDataS1.dollar_kWatt_data_center * (site.siteCalcsS1.computeNodesRequired.year01 * advancedDataS1.server_power_consumption + site.siteCalcsS1.dataNodesRequiredBackup.year01 * advancedDataS1.DVX_DN_power_consumption);
+  site.siteCalcsS1.dVXPowerCoolingCostsBackup.year02 = advancedDataS1.dollar_kWatt_data_center * (site.siteCalcsS1.computeNodesRequired.year02 * advancedDataS1.server_power_consumption + site.siteCalcsS1.dataNodesRequiredBackup.year02 * advancedDataS1.DVX_DN_power_consumption);
+  site.siteCalcsS1.dVXPowerCoolingCostsBackup.year03 = advancedDataS1.dollar_kWatt_data_center * (site.siteCalcsS1.computeNodesRequired.year03 * advancedDataS1.server_power_consumption + site.siteCalcsS1.dataNodesRequiredBackup.year03 * advancedDataS1.DVX_DN_power_consumption);
+
+  site.siteCalcsS1.cloudDVXPrice.year01 = cloudOutput.tsC.year01;
+  site.siteCalcsS1.cloudDVXPrice.year02 = cloudOutput.tsC.year02;
+  site.siteCalcsS1.cloudDVXPrice.year03 = cloudOutput.tsC.year03;
+
+  //  Array Requirements:
+  site.siteCalcsS1.arrayPrimaryUsableCapacityRequiredDedup.year01 = Math.ceil(site.siteCalcsS1.primaryEffectiveCapacityRequired.year01/basicDataS1.primary_data_reduction);
+  site.siteCalcsS1.arrayPrimaryUsableCapacityRequiredDedup.year02 = Math.ceil(site.siteCalcsS1.primaryEffectiveCapacityRequired.year02/basicDataS1.primary_data_reduction);
+  site.siteCalcsS1.arrayPrimaryUsableCapacityRequiredDedup.year03 = Math.ceil(site.siteCalcsS1.primaryEffectiveCapacityRequired.year03/basicDataS1.primary_data_reduction);
+
+  site.siteCalcsS1.computeNodesRequiredArrays.year01 = Math.ceil(Math.max(site.siteCalcsS1.totalvCPUsRequired.year01/(site.siteCalcsS1.logicalCores.year01 * helpers.percentToNumber(site.siteCalcsS1.computeRemainingPostBackup.year01)),(site.siteCalcsS1.totalRAMRequired.year01/site.siteCalcsS1.physicalRAM.year01)));
+  site.siteCalcsS1.computeNodesRequiredArrays.year02 = Math.ceil(Math.max(site.siteCalcsS1.totalvCPUsRequired.year02/(site.siteCalcsS1.logicalCores.year02 * helpers.percentToNumber(site.siteCalcsS1.computeRemainingPostBackup.year02)),(site.siteCalcsS1.totalRAMRequired.year02/site.siteCalcsS1.physicalRAM.year02)));
+  site.siteCalcsS1.computeNodesRequiredArrays.year03 = Math.ceil(Math.max(site.siteCalcsS1.totalvCPUsRequired.year03/(site.siteCalcsS1.logicalCores.year03 * helpers.percentToNumber(site.siteCalcsS1.computeRemainingPostBackup.year03)),(site.siteCalcsS1.totalRAMRequired.year03/site.siteCalcsS1.physicalRAM.year03)));
+
+  site.siteCalcsS1.arraysRequiredForPrimaryStorage.year01 = Math.ceil(site.siteCalcsS1.arrayPrimaryUsableCapacityRequiredDedup.year01/advancedDataS1.array_unit_capacity);
+  site.siteCalcsS1.arraysRequiredForPrimaryStorage.year02 = Math.ceil(site.siteCalcsS1.arrayPrimaryUsableCapacityRequiredDedup.year02/advancedDataS1.array_unit_capacity);
+  site.siteCalcsS1.arraysRequiredForPrimaryStorage.year03 = Math.ceil(site.siteCalcsS1.arrayPrimaryUsableCapacityRequiredDedup.year03/advancedDataS1.array_unit_capacity);
+
+  site.siteCalcsS1.backupUsableCapacityRequiredARRAY.year01 = tapeOutput.bcEOY_S1.year01;
+  site.siteCalcsS1.backupUsableCapacityRequiredARRAY.year02 = tapeOutput.bcEOY_S1.year02;
+  site.siteCalcsS1.backupUsableCapacityRequiredARRAY.year03 = tapeOutput.bcEOY_S1.year03;
+
+  site.siteCalcsS1.backupSystemsRequired.year01 = Math.ceil(site.siteCalcsS1.backupUsableCapacityRequiredARRAY.year01/advancedDataS1.backup_unit_capacity);
+  site.siteCalcsS1.backupSystemsRequired.year02 = Math.ceil(site.siteCalcsS1.backupUsableCapacityRequiredARRAY.year02/advancedDataS1.backup_unit_capacity);
+  site.siteCalcsS1.backupSystemsRequired.year03 = Math.ceil(site.siteCalcsS1.backupUsableCapacityRequiredARRAY.year03/advancedDataS1.backup_unit_capacity);
+
+  site.siteCalcsS1.tapeUsableCapacityRequired.year01 = tapeOutput.tcEOY_S1.year01;
+  site.siteCalcsS1.tapeUsableCapacityRequired.year02 = tapeOutput.tcEOY_S1.year02;
+  site.siteCalcsS1.tapeUsableCapacityRequired.year03 = tapeOutput.tcEOY_S1.year03;
+
+  site.siteCalcsS1.tapeSystemsRequired.year01 = Math.ceil(site.siteCalcsS1.tapeUsableCapacityRequired.year01/advancedDataS1.tape_unit_capacity);
+  site.siteCalcsS1.tapeSystemsRequired.year02 = Math.ceil(site.siteCalcsS1.tapeUsableCapacityRequired.year02/advancedDataS1.tape_unit_capacity);
+  site.siteCalcsS1.tapeSystemsRequired.year03 = Math.ceil(site.siteCalcsS1.tapeUsableCapacityRequired.year03/advancedDataS1.tape_unit_capacity);
+
+  site.siteCalcsS1.arrayPrice.year01 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year01 * advancedDataS1.array_unit_capacity * advancedDataS1.traditional_array_cost_primary;
+  site.siteCalcsS1.arrayPrice.year02 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year02 * advancedDataS1.array_unit_capacity * advancedDataS1.traditional_array_cost_primary;
+  site.siteCalcsS1.arrayPrice.year03 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year03 * advancedDataS1.array_unit_capacity * advancedDataS1.traditional_array_cost_primary;
+
+  site.siteCalcsS1.computeNodeHWPriceArray.year01 = site.siteCalcsS1.computeNodesRequired.year01 * (Number(advancedDataS1.server_base_cost) + (advancedDataS1.server_cores * advancedDataS1.server_CPU_dollar) + (advancedDataS1.server_RAM * advancedDataS1.server_RAM_dollar));
+  site.siteCalcsS1.computeNodeHWPriceArray.year02 = site.siteCalcsS1.computeNodesRequired.year02 * (Number(advancedDataS1.server_base_cost) + advancedDataS1.server_cores * advancedDataS1.server_CPU_dollar + advancedDataS1.server_RAM * advancedDataS1.server_RAM_dollar);
+  site.siteCalcsS1.computeNodeHWPriceArray.year03 = site.siteCalcsS1.computeNodesRequired.year03 * (Number(advancedDataS1.server_base_cost) + advancedDataS1.server_cores * advancedDataS1.server_CPU_dollar + advancedDataS1.server_RAM * advancedDataS1.server_RAM_dollar);
+
+  site.siteCalcsS1.backupPrice.year01 = site.siteCalcsS1.backupSystemsRequired.year01 * advancedDataS1.backup_unit_capacity * advancedDataS1.traditional_backup_system_cost;
+  site.siteCalcsS1.backupPrice.year02 = site.siteCalcsS1.backupSystemsRequired.year02 * advancedDataS1.backup_unit_capacity * advancedDataS1.traditional_backup_system_cost;
+  site.siteCalcsS1.backupPrice.year03 = site.siteCalcsS1.backupSystemsRequired.year03 * advancedDataS1.backup_unit_capacity * advancedDataS1.traditional_backup_system_cost;
+
+  site.siteCalcsS1.tapePrice.year01 = site.siteCalcsS1.tapeSystemsRequired.year01 * advancedDataS1.tape_unit_capacity * advancedDataS1.traditional_tape_system_cost;
+  site.siteCalcsS1.tapePrice.year02 = site.siteCalcsS1.tapeSystemsRequired.year02 * advancedDataS1.tape_unit_capacity * advancedDataS1.traditional_tape_system_cost;
+  site.siteCalcsS1.tapePrice.year03 = site.siteCalcsS1.tapeSystemsRequired.year03 * advancedDataS1.tape_unit_capacity * advancedDataS1.traditional_tape_system_cost;
+
+  site.siteCalcsS1.computeRackCosts.year01 = advancedDataS1.dollar_ru_year_data_center * site.siteCalcsS1.computeNodesRequired.year01 * advancedDataS1.server_rus;
+  site.siteCalcsS1.computeRackCosts.year02 = advancedDataS1.dollar_ru_year_data_center * site.siteCalcsS1.computeNodesRequired.year02 * advancedDataS1.server_rus;
+  site.siteCalcsS1.computeRackCosts.year03 = advancedDataS1.dollar_ru_year_data_center * site.siteCalcsS1.computeNodesRequired.year03 * advancedDataS1.server_rus;
+
+  site.siteCalcsS1.computeNetworkCosts.year01 = site.siteCalcsS1.computeNodesRequired.year01 * advancedDataS1.server_network_ports * advancedDataS1.network_cost_port;
+  site.siteCalcsS1.computeNetworkCosts.year02 = site.siteCalcsS1.computeNodesRequired.year02 * advancedDataS1.server_network_ports * advancedDataS1.network_cost_port;
+  site.siteCalcsS1.computeNetworkCosts.year03 = site.siteCalcsS1.computeNodesRequired.year03 * advancedDataS1.server_network_ports * advancedDataS1.network_cost_port;
+
+  site.siteCalcsS1.computePowerCoolingCosts.year01 = site.siteCalcsS1.computeNodesRequired.year01 * advancedDataS1.server_power_consumption * advancedDataS1.dollar_kWatt_data_center;
+  site.siteCalcsS1.computePowerCoolingCosts.year02 = site.siteCalcsS1.computeNodesRequired.year02 * advancedDataS1.server_power_consumption * advancedDataS1.dollar_kWatt_data_center;
+  site.siteCalcsS1.computePowerCoolingCosts.year03 = site.siteCalcsS1.computeNodesRequired.year03 * advancedDataS1.server_power_consumption * advancedDataS1.dollar_kWatt_data_center;
+
+  site.siteCalcsS1.arrayRackCosts.year01 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year01 * advancedDataS1.dollar_ru_year_data_center * advancedDataS1.array_rus;
+  site.siteCalcsS1.arrayRackCosts.year02 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year02 * advancedDataS1.dollar_ru_year_data_center * advancedDataS1.array_rus;
+  site.siteCalcsS1.arrayRackCosts.year03 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year03 * advancedDataS1.dollar_ru_year_data_center * advancedDataS1.array_rus;
+
+  site.siteCalcsS1.arrayNetworkCosts.year01 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year01 * advancedDataS1.network_cost_port * advancedDataS1.array_ports;
+  site.siteCalcsS1.arrayNetworkCosts.year02 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year02 * advancedDataS1.network_cost_port * advancedDataS1.array_ports;
+  site.siteCalcsS1.arrayNetworkCosts.year03 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year03 * advancedDataS1.network_cost_port * advancedDataS1.array_ports;
+
+  //  Minor Calc Discrepency with Spread Sheet - Checked.  May be due to rounding on the Excel
+  site.siteCalcsS1.arrayAdminCosts.year01 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year01 * advancedDataS1.array_unit_capacity * advancedDataS1.FTE_admin_dollar;
+  site.siteCalcsS1.arrayAdminCosts.year02 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year02 * advancedDataS1.array_unit_capacity * advancedDataS1.FTE_admin_dollar;
+  site.siteCalcsS1.arrayAdminCosts.year03 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year03 * advancedDataS1.array_unit_capacity * advancedDataS1.FTE_admin_dollar;
+
+  site.siteCalcsS1.arrayPowerCoolingCosts.year01 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year01 * advancedDataS1.array_power_consumption * advancedDataS1.dollar_kWatt_data_center;
+  site.siteCalcsS1.arrayPowerCoolingCosts.year02 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year02 * advancedDataS1.array_power_consumption * advancedDataS1.dollar_kWatt_data_center;
+  site.siteCalcsS1.arrayPowerCoolingCosts.year03 = site.siteCalcsS1.arraysRequiredForPrimaryStorage.year03 * advancedDataS1.array_power_consumption * advancedDataS1.dollar_kWatt_data_center;
+
+  site.siteCalcsS1.backupRackCosts.year01 = site.siteCalcsS1.backupSystemsRequired.year01 * advancedDataS1.backup_rus * advancedDataS1.dollar_ru_year_data_center;
+  site.siteCalcsS1.backupRackCosts.year02 = site.siteCalcsS1.backupSystemsRequired.year02 * advancedDataS1.backup_rus * advancedDataS1.dollar_ru_year_data_center;
+  site.siteCalcsS1.backupRackCosts.year03 = site.siteCalcsS1.backupSystemsRequired.year03 * advancedDataS1.backup_rus * advancedDataS1.dollar_ru_year_data_center;
+
+  site.siteCalcsS1.backupNetworkCosts.year01 = site.siteCalcsS1.backupSystemsRequired.year01 * advancedDataS1.network_cost_port * advancedDataS1.backup_ports;
+  site.siteCalcsS1.backupNetworkCosts.year02 = site.siteCalcsS1.backupSystemsRequired.year02 * advancedDataS1.network_cost_port * advancedDataS1.backup_ports;
+  site.siteCalcsS1.backupNetworkCosts.year03 = site.siteCalcsS1.backupSystemsRequired.year03 * advancedDataS1.network_cost_port * advancedDataS1.backup_ports;
+
+  //  Minor Calc Discrepency with Spread Sheet - Checked.  May be due to rounding on the Excel
+  site.siteCalcsS1.backupAdminCosts.year01 = site.siteCalcsS1.backupSystemsRequired.year01 * advancedDataS1.backup_unit_capacity * advancedDataS1.FTE_admin_dollar;
+  site.siteCalcsS1.backupAdminCosts.year02 = site.siteCalcsS1.backupSystemsRequired.year02 * advancedDataS1.backup_unit_capacity * advancedDataS1.FTE_admin_dollar;
+  site.siteCalcsS1.backupAdminCosts.year03 = site.siteCalcsS1.backupSystemsRequired.year03 * advancedDataS1.backup_unit_capacity * advancedDataS1.FTE_admin_dollar;
+
+  site.siteCalcsS1.backupPowerCoolingCosts.year01 = site.siteCalcsS1.backupSystemsRequired.year01 * advancedDataS1.backup_power_consumption * advancedDataS1.dollar_kWatt_data_center;
+  site.siteCalcsS1.backupPowerCoolingCosts.year02 = site.siteCalcsS1.backupSystemsRequired.year02 * advancedDataS1.backup_power_consumption * advancedDataS1.dollar_kWatt_data_center;
+  site.siteCalcsS1.backupPowerCoolingCosts.year03 = site.siteCalcsS1.backupSystemsRequired.year03 * advancedDataS1.backup_power_consumption * advancedDataS1.dollar_kWatt_data_center;
+
+  site.siteCalcsS1.tapeRackCosts.year01 = site.siteCalcsS1.tapeSystemsRequired.year01 * advancedDataS1.tape_rus * advancedDataS1.dollar_ru_year_data_center;
+  site.siteCalcsS1.tapeRackCosts.year02 = site.siteCalcsS1.tapeSystemsRequired.year02 * advancedDataS1.tape_rus * advancedDataS1.dollar_ru_year_data_center;
+  site.siteCalcsS1.tapeRackCosts.year03 = site.siteCalcsS1.tapeSystemsRequired.year03 * advancedDataS1.tape_rus * advancedDataS1.dollar_ru_year_data_center;
+
+  site.siteCalcsS1.tapeNetworkCosts.year01 = site.siteCalcsS1.tapeSystemsRequired.year01 * advancedDataS1.network_cost_port * advancedDataS1.tape_ports;
+  site.siteCalcsS1.tapeNetworkCosts.year02 = site.siteCalcsS1.tapeSystemsRequired.year02 * advancedDataS1.network_cost_port * advancedDataS1.tape_ports;
+  site.siteCalcsS1.tapeNetworkCosts.year03 = site.siteCalcsS1.tapeSystemsRequired.year03 * advancedDataS1.network_cost_port * advancedDataS1.tape_ports;
+
+  site.siteCalcsS1.tapeAdminCosts.year01 = site.siteCalcsS1.tapeSystemsRequired.year01 * advancedDataS1.tape_unit_capacity * advancedDataS1.FTE_admin_dollar;
+  site.siteCalcsS1.tapeAdminCosts.year02 = site.siteCalcsS1.tapeSystemsRequired.year02 * advancedDataS1.tape_unit_capacity * advancedDataS1.FTE_admin_dollar;
+  site.siteCalcsS1.tapeAdminCosts.year03 = site.siteCalcsS1.tapeSystemsRequired.year03 * advancedDataS1.tape_unit_capacity * advancedDataS1.FTE_admin_dollar;
+
+  site.siteCalcsS1.tapePowerCoolingCosts.year01 = site.siteCalcsS1.tapeSystemsRequired.year01 * advancedDataS1.tape_power_consumption * advancedDataS1.dollar_kWatt_data_center;
+  site.siteCalcsS1.tapePowerCoolingCosts.year02 = site.siteCalcsS1.tapeSystemsRequired.year02 * advancedDataS1.tape_power_consumption * advancedDataS1.dollar_kWatt_data_center;
+  site.siteCalcsS1.tapePowerCoolingCosts.year03 = site.siteCalcsS1.tapeSystemsRequired.year03 * advancedDataS1.tape_power_consumption * advancedDataS1.dollar_kWatt_data_center;
+
+  site.siteCalcsS1.dollarPerComputeNode.year01 = site.siteCalcsS1.computeNodeHWPriceDVX.year01/site.siteCalcsS1.computeNodesRequired.year01;
+  site.siteCalcsS1.dollarPerComputeNode.year02 = site.siteCalcsS1.computeNodeHWPriceDVX.year02/site.siteCalcsS1.computeNodesRequired.year02;
+  site.siteCalcsS1.dollarPerComputeNode.year03 = site.siteCalcsS1.computeNodeHWPriceDVX.year03/site.siteCalcsS1.computeNodesRequired.year03;
+
+  site.siteCalcsS1.vmPerComputeNode.year01 = site.siteCalcsS1.vMs.year01/site.siteCalcsS1.computeNodesRequired.year01;
+  site.siteCalcsS1.vmPerComputeNode.year02 = site.siteCalcsS1.vMs.year02/site.siteCalcsS1.computeNodesRequired.year02;
+  site.siteCalcsS1.vmPerComputeNode.year03 = site.siteCalcsS1.vMs.year03/site.siteCalcsS1.computeNodesRequired.year03;
+
+  site.siteCalcsS1.ramPerComputeNode.year01 = site.siteCalcsS1.totalRAMRequired.year01/site.siteCalcsS1.computeNodesRequired.year01;
+  site.siteCalcsS1.ramPerComputeNode.year02 = site.siteCalcsS1.totalRAMRequired.year02/site.siteCalcsS1.computeNodesRequired.year02;
+  site.siteCalcsS1.ramPerComputeNode.year03 = site.siteCalcsS1.totalRAMRequired.year03/site.siteCalcsS1.computeNodesRequired.year03;
+
+  site.siteCalcsS1.flashPerComputeNode.year01 = site.siteCalcsS1.flashDevicesRequiredPerComputeNode.year01 * advancedDataS1.server_cache_size;
+  site.siteCalcsS1.flashPerComputeNode.year02 = site.siteCalcsS1.flashDevicesRequiredPerComputeNode.year02 * advancedDataS1.server_cache_size;
+  site.siteCalcsS1.flashPerComputeNode.year03 = site.siteCalcsS1.flashDevicesRequiredPerComputeNode.year03 * advancedDataS1.server_cache_size;
+
+
+  // console.log('TEST');
+  // console.log(site.siteCalcsS1.flashDevicesRequiredPerComputeNode.year01);
 
   console.log('SITE CALCULATIONS (YELLOW) S1');
   console.log(site.siteCalcsS1);
   model.updateLocalStore(site.siteCalcsS1,'siteCalcsS1');
-
-
 
 
   //  Site 02
@@ -304,6 +459,151 @@ site.resourcesRequired = function () {
   site.siteCalcsS2.dVXRackCostsPrimary.year01 = (site.siteCalcsS2.computeNodesRequired.year01 * advancedDataS2.server_rus + site.siteCalcsS2.dataNodesRequiredPrimary.year01 * advancedDataS2.DVX_data_node_rus) * advancedDataS2.dollar_ru_year_data_center;
   site.siteCalcsS2.dVXRackCostsPrimary.year02 = (site.siteCalcsS2.computeNodesRequired.year02 * advancedDataS2.server_rus + site.siteCalcsS2.dataNodesRequiredPrimary.year02 * advancedDataS2.DVX_data_node_rus) * advancedDataS2.dollar_ru_year_data_center;
   site.siteCalcsS2.dVXRackCostsPrimary.year03 = (site.siteCalcsS2.computeNodesRequired.year03 * advancedDataS2.server_rus + site.siteCalcsS2.dataNodesRequiredPrimary.year03 * advancedDataS2.DVX_data_node_rus) * advancedDataS2.dollar_ru_year_data_center;
+
+  site.siteCalcsS2.dVXAdminCostsPrimary.year01 = advancedDataS2.FTE_admin_dollar * (site.siteCalcsS2.dataNodesRequiredPrimary.year01 * advancedDataS2.data_node_usable_capacity);
+  site.siteCalcsS2.dVXAdminCostsPrimary.year02 = advancedDataS2.FTE_admin_dollar * (site.siteCalcsS2.dataNodesRequiredPrimary.year02 * advancedDataS2.data_node_usable_capacity);
+  site.siteCalcsS2.dVXAdminCostsPrimary.year03 = advancedDataS2.FTE_admin_dollar * (site.siteCalcsS2.dataNodesRequiredPrimary.year03 * advancedDataS2.data_node_usable_capacity);
+
+  site.siteCalcsS2.dVXPowerCoolingCostsPrimary.year01 = advancedDataS2.dollar_kWatt_data_center * (site.siteCalcsS2.computeNodesRequired.year01 * advancedDataS2.server_power_consumption + site.siteCalcsS2.dataNodesRequiredPrimary.year01 * advancedDataS2.DVX_DN_power_consumption);
+  site.siteCalcsS2.dVXPowerCoolingCostsPrimary.year02 = advancedDataS2.dollar_kWatt_data_center * (site.siteCalcsS2.computeNodesRequired.year02 * advancedDataS2.server_power_consumption + site.siteCalcsS2.dataNodesRequiredPrimary.year02 * advancedDataS2.DVX_DN_power_consumption);
+  site.siteCalcsS2.dVXPowerCoolingCostsPrimary.year03 = advancedDataS2.dollar_kWatt_data_center * (site.siteCalcsS2.computeNodesRequired.year03 * advancedDataS2.server_power_consumption + site.siteCalcsS2.dataNodesRequiredPrimary.year03 * advancedDataS2.DVX_DN_power_consumption);
+
+  site.siteCalcsS2.dVXRackCostsBackup.year01 = (site.siteCalcsS2.computeNodesRequired.year01 * advancedDataS2.server_rus + site.siteCalcsS2.dataNodesRequiredBackup.year01 * advancedDataS2.DVX_data_node_rus) * advancedDataS2.dollar_ru_year_data_center;
+  site.siteCalcsS2.dVXRackCostsBackup.year02 = (site.siteCalcsS2.computeNodesRequired.year02 * advancedDataS2.server_rus + site.siteCalcsS2.dataNodesRequiredBackup.year02 * advancedDataS2.DVX_data_node_rus) * advancedDataS2.dollar_ru_year_data_center;
+  site.siteCalcsS2.dVXRackCostsBackup.year03 = (site.siteCalcsS2.computeNodesRequired.year03 * advancedDataS2.server_rus + site.siteCalcsS2.dataNodesRequiredBackup.year03 * advancedDataS2.DVX_data_node_rus) * advancedDataS2.dollar_ru_year_data_center;
+
+  site.siteCalcsS2.dVXNetworkCostsBackup.year01 = advancedDataS2.network_cost_port * (site.siteCalcsS2.computeNodesRequired.year01 * advancedDataS2.server_network_ports + site.siteCalcsS2.dataNodesRequiredBackup.year01 * advancedDataS2.DVX_data_node_ports);
+  site.siteCalcsS2.dVXNetworkCostsBackup.year02 = advancedDataS2.network_cost_port * (site.siteCalcsS2.computeNodesRequired.year02 * advancedDataS2.server_network_ports + site.siteCalcsS2.dataNodesRequiredBackup.year02 * advancedDataS2.DVX_data_node_ports);
+  site.siteCalcsS2.dVXNetworkCostsBackup.year03 = advancedDataS2.network_cost_port * (site.siteCalcsS2.computeNodesRequired.year03 * advancedDataS2.server_network_ports + site.siteCalcsS2.dataNodesRequiredBackup.year03 * advancedDataS2.DVX_data_node_ports);
+
+  site.siteCalcsS2.dVXAdminCostsBackup.year01 = advancedDataS2.FTE_admin_dollar * (site.siteCalcsS2.dataNodesRequiredBackup.year01 * advancedDataS2.data_node_usable_capacity);
+  site.siteCalcsS2.dVXAdminCostsBackup.year02 = advancedDataS2.FTE_admin_dollar * (site.siteCalcsS2.dataNodesRequiredBackup.year02 * advancedDataS2.data_node_usable_capacity);
+  site.siteCalcsS2.dVXAdminCostsBackup.year03 = advancedDataS2.FTE_admin_dollar * (site.siteCalcsS2.dataNodesRequiredBackup.year03 * advancedDataS2.data_node_usable_capacity);
+
+  site.siteCalcsS2.dVXPowerCoolingCostsBackup.year01 = advancedDataS2.dollar_kWatt_data_center * (site.siteCalcsS2.computeNodesRequired.year01 * advancedDataS2.server_power_consumption + site.siteCalcsS2.dataNodesRequiredBackup.year01 * advancedDataS2.DVX_DN_power_consumption);
+  site.siteCalcsS2.dVXPowerCoolingCostsBackup.year02 = advancedDataS2.dollar_kWatt_data_center * (site.siteCalcsS2.computeNodesRequired.year02 * advancedDataS2.server_power_consumption + site.siteCalcsS2.dataNodesRequiredBackup.year02 * advancedDataS2.DVX_DN_power_consumption);
+  site.siteCalcsS2.dVXPowerCoolingCostsBackup.year03 = advancedDataS2.dollar_kWatt_data_center * (site.siteCalcsS2.computeNodesRequired.year03 * advancedDataS2.server_power_consumption + site.siteCalcsS2.dataNodesRequiredBackup.year03 * advancedDataS2.DVX_DN_power_consumption);
+
+  site.siteCalcsS2.cloudDVXPrice.year01 = 'NA';
+  site.siteCalcsS2.cloudDVXPrice.year02 = 'NA';
+  site.siteCalcsS2.cloudDVXPrice.year03 = 'NA';
+
+  //  Array Requirements:
+  site.siteCalcsS2.arrayPrimaryUsableCapacityRequiredDedup.year01 = Math.ceil(site.siteCalcsS2.primaryEffectiveCapacityRequired.year01/basicDataS2.primary_data_reduction);
+  site.siteCalcsS2.arrayPrimaryUsableCapacityRequiredDedup.year02 = Math.ceil(site.siteCalcsS2.primaryEffectiveCapacityRequired.year02/basicDataS2.primary_data_reduction);
+  site.siteCalcsS2.arrayPrimaryUsableCapacityRequiredDedup.year03 = Math.ceil(site.siteCalcsS2.primaryEffectiveCapacityRequired.year03/basicDataS2.primary_data_reduction);
+
+  site.siteCalcsS2.computeNodesRequiredArrays.year01 = Math.ceil(Math.max(site.siteCalcsS2.totalvCPUsRequired.year01/(site.siteCalcsS2.logicalCores.year01 * helpers.percentToNumber(site.siteCalcsS2.computeRemainingPostBackup.year01)),(site.siteCalcsS2.totalRAMRequired.year01/site.siteCalcsS2.physicalRAM.year01)));
+  site.siteCalcsS2.computeNodesRequiredArrays.year02 = Math.ceil(Math.max(site.siteCalcsS2.totalvCPUsRequired.year02/(site.siteCalcsS2.logicalCores.year02 * helpers.percentToNumber(site.siteCalcsS2.computeRemainingPostBackup.year02)),(site.siteCalcsS2.totalRAMRequired.year02/site.siteCalcsS2.physicalRAM.year02)));
+  site.siteCalcsS2.computeNodesRequiredArrays.year03 = Math.ceil(Math.max(site.siteCalcsS2.totalvCPUsRequired.year03/(site.siteCalcsS2.logicalCores.year03 * helpers.percentToNumber(site.siteCalcsS2.computeRemainingPostBackup.year03)),(site.siteCalcsS2.totalRAMRequired.year03/site.siteCalcsS2.physicalRAM.year03)));
+
+  site.siteCalcsS2.arraysRequiredForPrimaryStorage.year01 = Math.ceil(site.siteCalcsS2.arrayPrimaryUsableCapacityRequiredDedup.year01/advancedDataS2.array_unit_capacity);
+  site.siteCalcsS2.arraysRequiredForPrimaryStorage.year02 = Math.ceil(site.siteCalcsS2.arrayPrimaryUsableCapacityRequiredDedup.year02/advancedDataS2.array_unit_capacity);
+  site.siteCalcsS2.arraysRequiredForPrimaryStorage.year03 = Math.ceil(site.siteCalcsS2.arrayPrimaryUsableCapacityRequiredDedup.year03/advancedDataS2.array_unit_capacity);
+
+  site.siteCalcsS2.backupUsableCapacityRequiredARRAY.year01 = tapeOutput.bcEOY_S2.year01;
+  site.siteCalcsS2.backupUsableCapacityRequiredARRAY.year02 = tapeOutput.bcEOY_S2.year02;
+  site.siteCalcsS2.backupUsableCapacityRequiredARRAY.year03 = tapeOutput.bcEOY_S2.year03;
+
+  site.siteCalcsS2.backupSystemsRequired.year01 = Math.ceil(site.siteCalcsS2.backupUsableCapacityRequiredARRAY.year01/advancedDataS2.backup_unit_capacity);
+  site.siteCalcsS2.backupSystemsRequired.year02 = Math.ceil(site.siteCalcsS2.backupUsableCapacityRequiredARRAY.year02/advancedDataS2.backup_unit_capacity);
+  site.siteCalcsS2.backupSystemsRequired.year03 = Math.ceil(site.siteCalcsS2.backupUsableCapacityRequiredARRAY.year03/advancedDataS2.backup_unit_capacity);
+
+  site.siteCalcsS2.tapeUsableCapacityRequired.year01 = tapeOutput.tcEOY_S2.year01;
+  site.siteCalcsS2.tapeUsableCapacityRequired.year02 = tapeOutput.tcEOY_S2.year02;
+  site.siteCalcsS2.tapeUsableCapacityRequired.year03 = tapeOutput.tcEOY_S2.year03;
+
+  site.siteCalcsS2.tapeSystemsRequired.year01 = Math.ceil(site.siteCalcsS2.tapeUsableCapacityRequired.year01/advancedDataS2.tape_unit_capacity);
+  site.siteCalcsS2.tapeSystemsRequired.year02 = Math.ceil(site.siteCalcsS2.tapeUsableCapacityRequired.year02/advancedDataS2.tape_unit_capacity);
+  site.siteCalcsS2.tapeSystemsRequired.year03 = Math.ceil(site.siteCalcsS2.tapeUsableCapacityRequired.year03/advancedDataS2.tape_unit_capacity);
+
+  site.siteCalcsS2.arrayPrice.year01 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year01 * advancedDataS2.array_unit_capacity * advancedDataS2.traditional_array_cost_primary;
+  site.siteCalcsS2.arrayPrice.year02 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year02 * advancedDataS2.array_unit_capacity * advancedDataS2.traditional_array_cost_primary;
+  site.siteCalcsS2.arrayPrice.year03 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year03 * advancedDataS2.array_unit_capacity * advancedDataS2.traditional_array_cost_primary;
+
+  site.siteCalcsS2.computeNodeHWPriceArray.year01 = site.siteCalcsS2.computeNodesRequired.year01 * (Number(advancedDataS2.server_base_cost) + (advancedDataS2.server_cores * advancedDataS2.server_CPU_dollar) + (advancedDataS2.server_RAM * advancedDataS2.server_RAM_dollar));
+  site.siteCalcsS2.computeNodeHWPriceArray.year02 = site.siteCalcsS2.computeNodesRequired.year02 * (Number(advancedDataS2.server_base_cost) + advancedDataS2.server_cores * advancedDataS2.server_CPU_dollar + advancedDataS2.server_RAM * advancedDataS2.server_RAM_dollar);
+  site.siteCalcsS2.computeNodeHWPriceArray.year03 = site.siteCalcsS2.computeNodesRequired.year03 * (Number(advancedDataS2.server_base_cost) + advancedDataS2.server_cores * advancedDataS2.server_CPU_dollar + advancedDataS2.server_RAM * advancedDataS2.server_RAM_dollar);
+
+  site.siteCalcsS2.backupPrice.year01 = site.siteCalcsS2.backupSystemsRequired.year01 * advancedDataS2.backup_unit_capacity * advancedDataS2.traditional_backup_system_cost;
+  site.siteCalcsS2.backupPrice.year02 = site.siteCalcsS2.backupSystemsRequired.year01 * advancedDataS2.backup_unit_capacity * advancedDataS2.traditional_backup_system_cost;
+  site.siteCalcsS2.backupPrice.year03 = site.siteCalcsS2.backupSystemsRequired.year01 * advancedDataS2.backup_unit_capacity * advancedDataS2.traditional_backup_system_cost;
+
+  site.siteCalcsS2.tapePrice.year01 = site.siteCalcsS2.tapeSystemsRequired.year01 * advancedDataS2.tape_unit_capacity * advancedDataS2.traditional_tape_system_cost;
+  site.siteCalcsS2.tapePrice.year02 = site.siteCalcsS2.tapeSystemsRequired.year02 * advancedDataS2.tape_unit_capacity * advancedDataS2.traditional_tape_system_cost;
+  site.siteCalcsS2.tapePrice.year03 = site.siteCalcsS2.tapeSystemsRequired.year03 * advancedDataS2.tape_unit_capacity * advancedDataS2.traditional_tape_system_cost;
+
+  site.siteCalcsS2.computeRackCosts.year01 = advancedDataS2.dollar_ru_year_data_center * site.siteCalcsS2.computeNodesRequired.year01 * advancedDataS2.server_rus;
+  site.siteCalcsS2.computeRackCosts.year02 = advancedDataS2.dollar_ru_year_data_center * site.siteCalcsS2.computeNodesRequired.year02 * advancedDataS2.server_rus;
+  site.siteCalcsS2.computeRackCosts.year03 = advancedDataS2.dollar_ru_year_data_center * site.siteCalcsS2.computeNodesRequired.year03 * advancedDataS2.server_rus;
+
+  site.siteCalcsS2.computeNetworkCosts.year01 = site.siteCalcsS2.computeNodesRequired.year01 * advancedDataS2.server_network_ports * advancedDataS2.network_cost_port;
+  site.siteCalcsS2.computeNetworkCosts.year02 = site.siteCalcsS2.computeNodesRequired.year02 * advancedDataS2.server_network_ports * advancedDataS2.network_cost_port;
+  site.siteCalcsS2.computeNetworkCosts.year03 = site.siteCalcsS2.computeNodesRequired.year03 * advancedDataS2.server_network_ports * advancedDataS2.network_cost_port;
+
+  site.siteCalcsS2.computePowerCoolingCosts.year01 = site.siteCalcsS2.computeNodesRequired.year01 * advancedDataS2.server_power_consumption * advancedDataS2.dollar_kWatt_data_center;
+  site.siteCalcsS2.computePowerCoolingCosts.year02 = site.siteCalcsS2.computeNodesRequired.year02 * advancedDataS2.server_power_consumption * advancedDataS2.dollar_kWatt_data_center;
+  site.siteCalcsS2.computePowerCoolingCosts.year03 = site.siteCalcsS2.computeNodesRequired.year03 * advancedDataS2.server_power_consumption * advancedDataS2.dollar_kWatt_data_center;
+
+  site.siteCalcsS2.arrayRackCosts.year01 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year01 * advancedDataS2.dollar_ru_year_data_center * advancedDataS2.array_rus;
+  site.siteCalcsS2.arrayRackCosts.year02 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year02 * advancedDataS2.dollar_ru_year_data_center * advancedDataS2.array_rus;
+  site.siteCalcsS2.arrayRackCosts.year03 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year03 * advancedDataS2.dollar_ru_year_data_center * advancedDataS2.array_rus;
+
+  site.siteCalcsS2.arrayNetworkCosts.year01 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year01 * advancedDataS2.network_cost_port * advancedDataS2.array_ports;
+  site.siteCalcsS2.arrayNetworkCosts.year02 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year02 * advancedDataS2.network_cost_port * advancedDataS2.array_ports;
+  site.siteCalcsS2.arrayNetworkCosts.year03 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year03 * advancedDataS2.network_cost_port * advancedDataS2.array_ports;
+
+  site.siteCalcsS2.arrayAdminCosts.year01 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year01 * advancedDataS2.array_unit_capacity * advancedDataS2.FTE_admin_dollar;
+  site.siteCalcsS2.arrayAdminCosts.year02 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year02 * advancedDataS2.array_unit_capacity * advancedDataS2.FTE_admin_dollar;
+  site.siteCalcsS2.arrayAdminCosts.year03 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year03 * advancedDataS2.array_unit_capacity * advancedDataS2.FTE_admin_dollar;
+
+  site.siteCalcsS2.arrayPowerCoolingCosts.year01 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year01 * advancedDataS2.array_power_consumption * advancedDataS2.dollar_kWatt_data_center;
+  site.siteCalcsS2.arrayPowerCoolingCosts.year02 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year02 * advancedDataS2.array_power_consumption * advancedDataS2.dollar_kWatt_data_center;
+  site.siteCalcsS2.arrayPowerCoolingCosts.year03 = site.siteCalcsS2.arraysRequiredForPrimaryStorage.year03 * advancedDataS2.array_power_consumption * advancedDataS2.dollar_kWatt_data_center;
+
+  site.siteCalcsS2.backupRackCosts.year01 = site.siteCalcsS2.backupSystemsRequired.year01 * advancedDataS2.backup_rus * advancedDataS2.dollar_ru_year_data_center;
+  site.siteCalcsS2.backupRackCosts.year02 = site.siteCalcsS2.backupSystemsRequired.year02 * advancedDataS2.backup_rus * advancedDataS2.dollar_ru_year_data_center;
+  site.siteCalcsS2.backupRackCosts.year03 = site.siteCalcsS2.backupSystemsRequired.year03 * advancedDataS2.backup_rus * advancedDataS2.dollar_ru_year_data_center;
+
+  site.siteCalcsS2.backupAdminCosts.year01 = site.siteCalcsS2.backupSystemsRequired.year01 * advancedDataS2.backup_unit_capacity * advancedDataS2.FTE_admin_dollar;
+  site.siteCalcsS2.backupAdminCosts.year02 = site.siteCalcsS2.backupSystemsRequired.year02 * advancedDataS2.backup_unit_capacity * advancedDataS2.FTE_admin_dollar;
+  site.siteCalcsS2.backupAdminCosts.year03 = site.siteCalcsS2.backupSystemsRequired.year03 * advancedDataS2.backup_unit_capacity * advancedDataS2.FTE_admin_dollar;
+
+  site.siteCalcsS2.backupPowerCoolingCosts.year01 = site.siteCalcsS2.backupSystemsRequired.year01 * advancedDataS2.backup_power_consumption * advancedDataS2.dollar_kWatt_data_center;
+  site.siteCalcsS2.backupPowerCoolingCosts.year02 = site.siteCalcsS2.backupSystemsRequired.year02 * advancedDataS2.backup_power_consumption * advancedDataS2.dollar_kWatt_data_center;
+  site.siteCalcsS2.backupPowerCoolingCosts.year03 = site.siteCalcsS2.backupSystemsRequired.year03 * advancedDataS2.backup_power_consumption * advancedDataS2.dollar_kWatt_data_center;
+
+  site.siteCalcsS2.tapeRackCosts.year01 = site.siteCalcsS2.tapeSystemsRequired.year01 * advancedDataS2.tape_rus * advancedDataS2.dollar_ru_year_data_center;
+  site.siteCalcsS2.tapeRackCosts.year02 = site.siteCalcsS2.tapeSystemsRequired.year02 * advancedDataS2.tape_rus * advancedDataS2.dollar_ru_year_data_center;
+  site.siteCalcsS2.tapeRackCosts.year03 = site.siteCalcsS2.tapeSystemsRequired.year03 * advancedDataS2.tape_rus * advancedDataS2.dollar_ru_year_data_center;
+
+  site.siteCalcsS2.tapeNetworkCosts.year01 = site.siteCalcsS2.tapeSystemsRequired.year01 * advancedDataS2.network_cost_port * advancedDataS2.tape_ports;
+  site.siteCalcsS2.tapeNetworkCosts.year02 = site.siteCalcsS2.tapeSystemsRequired.year02 * advancedDataS2.network_cost_port * advancedDataS2.tape_ports;
+  site.siteCalcsS2.tapeNetworkCosts.year03 = site.siteCalcsS2.tapeSystemsRequired.year03 * advancedDataS2.network_cost_port * advancedDataS2.tape_ports;
+
+  site.siteCalcsS2.tapeAdminCosts.year01 = site.siteCalcsS2.tapeSystemsRequired.year01 * advancedDataS2.tape_unit_capacity * advancedDataS2.FTE_admin_dollar;
+  site.siteCalcsS2.tapeAdminCosts.year02 = site.siteCalcsS2.tapeSystemsRequired.year02 * advancedDataS2.tape_unit_capacity * advancedDataS2.FTE_admin_dollar;
+  site.siteCalcsS2.tapeAdminCosts.year03 = site.siteCalcsS2.tapeSystemsRequired.year03 * advancedDataS2.tape_unit_capacity * advancedDataS2.FTE_admin_dollar;
+
+  site.siteCalcsS2.tapePowerCoolingCosts.year01 = site.siteCalcsS2.tapeSystemsRequired.year01 * advancedDataS2.tape_power_consumption * advancedDataS2.dollar_kWatt_data_center;
+  site.siteCalcsS2.tapePowerCoolingCosts.year02 = site.siteCalcsS2.tapeSystemsRequired.year02 * advancedDataS2.tape_power_consumption * advancedDataS2.dollar_kWatt_data_center;
+  site.siteCalcsS2.tapePowerCoolingCosts.year03 = site.siteCalcsS2.tapeSystemsRequired.year03 * advancedDataS2.tape_power_consumption * advancedDataS2.dollar_kWatt_data_center;
+
+  site.siteCalcsS2.dollarPerComputeNode.year01 = site.siteCalcsS2.computeNodeHWPriceDVX.year01/site.siteCalcsS2.computeNodesRequired.year01;
+  site.siteCalcsS2.dollarPerComputeNode.year02 = site.siteCalcsS2.computeNodeHWPriceDVX.year02/site.siteCalcsS2.computeNodesRequired.year02;
+  site.siteCalcsS2.dollarPerComputeNode.year03 = site.siteCalcsS2.computeNodeHWPriceDVX.year03/site.siteCalcsS2.computeNodesRequired.year03;
+
+  site.siteCalcsS2.vmPerComputeNode.year01 = site.siteCalcsS2.vMs.year01/site.siteCalcsS2.computeNodesRequired.year01;
+  site.siteCalcsS2.vmPerComputeNode.year02 = site.siteCalcsS2.vMs.year02/site.siteCalcsS2.computeNodesRequired.year02;
+  site.siteCalcsS2.vmPerComputeNode.year03 = site.siteCalcsS2.vMs.year03/site.siteCalcsS2.computeNodesRequired.year03;
+
+  site.siteCalcsS2.ramPerComputeNode.year01 = site.siteCalcsS2.totalRAMRequired.year01/site.siteCalcsS2.computeNodesRequired.year01;
+  site.siteCalcsS2.ramPerComputeNode.year02 = site.siteCalcsS2.totalRAMRequired.year02/site.siteCalcsS2.computeNodesRequired.year02;
+  site.siteCalcsS2.ramPerComputeNode.year03 = site.siteCalcsS2.totalRAMRequired.year03/site.siteCalcsS2.computeNodesRequired.year03;
+
+  site.siteCalcsS2.flashPerComputeNode.year01 = site.siteCalcsS2.flashDevicesRequiredPerComputeNode.year01/advancedDataS2.server_cache_size;
+  site.siteCalcsS2.flashPerComputeNode.year02 = site.siteCalcsS2.flashDevicesRequiredPerComputeNode.year02/advancedDataS2.server_cache_size;
+  site.siteCalcsS2.flashPerComputeNode.year03 = site.siteCalcsS2.flashDevicesRequiredPerComputeNode.year03/advancedDataS2.server_cache_size;
 
 
 

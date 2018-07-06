@@ -13,17 +13,17 @@ model.init = function() {
   // model.updateLocalStore( data, 'myData' );        //  Add 'data' object from data.js to Local Store
 
 
-  model.userInputBasic = [        //  PROPERTIES for 'Basic Customer INPUT' Object - model.userInputBasicS1 and S2
-    'primary_stor',
-    'secondary_stor',
-    'tape',
-    'existing_nodes',
+  model.userInputBasic_Records = [        //  PROPERTIES for 'Basic Customer INPUT' Object - model.userInputBasicS1 and S2  <<<  NO LONGER USED - RECORD KEEPING NOW
+    'primary_stor',                 //  9
+    'secondary_stor',               //  10
+    'tape',                         //  11
+    'existing_nodes',               //  12
     'num_vms',
     'vcpu_vm',
     'ram_vm',
     'disk_vm',
     'proj_vm_growth',
-    'primary_data_reduction',
+    'primary_data_reduction',       // 20
     'backup_data_reduction',
     'tape_data_reduction',
     'backup_exp_sched',
@@ -34,17 +34,17 @@ model.init = function() {
 
 
   //  IMPORTANT NOTICE:  To add additional Advanced Inputs:
-  //  Add the name to the array below
-  //  Add the element to the HTML with the appropriate CSS classes
-  //  MUST BE IN CORRECT ORDER !!!        - Same order as html form inputs
-  //  MUST BE SAME INPUTS AS ON HTML !!!  - Same order as html form inputs
+  //  Add the name to the array below (Record Keeping)
+  //  Add the element to the HTML with the appropriate CSS classes and name attribute (listed below)
   //  That is it!  The rest is automatic
 
   //  Only Properties included in the HTML form:
-  model.userInputAdvanced = [     //  PROPERTIES for 'Advanced Customer INPUT' Object -  model.userInputAdvancedS1 and S2
+  model.userInputAdvanced_Records = [     //  PROPERTIES for 'Advanced Customer INPUT' Object -  model.userInputAdvancedS1 and S2 <<<  NO LONGER USED - RECORD KEEPING NOW
 
                                         //  < Operating Costs
+    'FTE_admin_dollar',                 //  30
     'dollar_ru_year_data_center',       //  31
+    'dollar_kWatt_data_center',         //  32
                                         //  < Compute Details
     'server_base_cost',                 //  34
     'server_cores',                     //  35
@@ -56,6 +56,7 @@ model.init = function() {
     'server_cache_size',                //  41
     'server_rus',                       //  42
     'server_network_ports',             //  43
+    'server_power_consumption',         //  44
                                         //  < DVX Details
     'exp_data_reduction_DVX',           //  46
     'cloud_data_reduction_ratio',       //  47
@@ -67,10 +68,27 @@ model.init = function() {
     'DVX_data_node_rus',                //  59
     'DVX_data_node_ports',              //  60
     'DVX_max_cache_per_host',           //  61
+    'DVX_DN_power_consumption',         //  62
+                                        //  < Primary Storage Details
+    'traditional_array_cost_primary',   //  66
+    'array_unit_capacity',              //  67
+    'array_ports',                      //  68
+    'array_rus',                        //  69
+    'array_power_consumption',          //  70
                                         //  < Backup Storage Details
+    'traditional_backup_system_cost',   //  74
+    'backup_unit_capacity',             //  75
     'backup_host_cpu_consumption',      //  76
+    'backup_ports',                     //  77
+    'backup_rus',                       //  78
+    'backup_power_consumption',         //  79
                                         //  < Tape Storage Details
-    'network_cost_port'                //  89
+    'traditional_tape_system_cost',     //  83
+    'tape_unit_capacity',               //  84
+    'tape_ports',                       //  86
+    'tape_rus',                         //  87
+    'tape_power_consumption',           //  88
+    'network_cost_port'                 //  89
   ];
 
 
@@ -78,6 +96,33 @@ model.init = function() {
   model.userInputAdvancedS1 = {};   //  Start - Advanced Customer Input Site 1
   model.userInputBasicS2 = {};      //  Start - Basic Customer Input Site 2
   model.userInputAdvancedS2 = {};   //  Start - Advanced Customer Input Site 2
+
+  // let userInputBasicS1Els = helpers.getFormInputEls('userInputBasicS1'),        //  GET Input Elements from HTML - to add property names to Object
+  //   userInputBasicS2Els = helpers.getFormInputEls('userInputBasicS2'),
+  //   userInputAdvancedS1Els = helpers.getFormInputEls('userInputAdvancedS1'),
+  //   userInputAdvancedS2Els = helpers.getFormInputEls('userInputAdvancedS2');
+
+  //  First use HTML Inputs to build each object with properties derived from name attribute
+  //  assign null to each property
+  // on EVENT > loop through HTML again and assign value (property) to each Input object property
+
+  // for(let i = 0; i < userInputBasicS1Els.length;i++){
+  //   model.userInputBasicS1[userInputBasicS1Els[i].name] = null;                 //  Add properties to the Object from the HTML Elements (El.name) - assign null
+  // }
+  // for(let i = 0; i < userInputBasicS2Els.length;i++){
+  //   model.userInputBasicS2[userInputBasicS2Els[i].name] = null;                 //  Add properties to the Object from the HTML Elements (El.name) - assign null
+  // }
+  // for(let i = 0; i < userInputAdvancedS1Els.length;i++){
+  //   model.userInputAdvancedS1[userInputAdvancedS1Els[i].name] = null;           //  Add properties to the Object from the HTML Elements (El.name) - assign null
+  // }
+  // for(let i = 0; i < userInputAdvancedS2Els.length;i++){
+  //   model.userInputAdvancedS2[userInputAdvancedS2Els[i].name] = null;           //  Add properties to the Object from the HTML Elements (El.name) - assign null
+  // }
+
+  // console.log(model.userInputBasicS1);
+  // console.log(model.userInputBasicS2);
+  // console.log(model.userInputAdvancedS1);
+  // console.log(model.userInputAdvancedS2);
 
 };
 
@@ -99,20 +144,33 @@ model.updateUserInputs = function(inputType, site) {                  //  User I
 
   let inputEls = helpers.getFormInputEls(dataName);
 
-  if(inputEls.length === model[inputType].length) {
-    let i = 0;
-    for (; i < inputEls.length; i++) {
-
-      // console.log(model[inputType][i]);
-      // console.log(inputEls[i].value);
-
-      model[dataName][model[inputType][i]] = inputEls[i].value;     //  Ex.  model.userInputBasicS1.primary_stor = 1
-    }
-  } else {
-    console.log('THROW ERROR: model.js:67');
+  let i = 0;
+  for (; i < inputEls.length; i++) {                                //  Loop to create User Input Objects
+      model[dataName][inputEls[i].name] = inputEls[i].value         //  model.userInputBasicS1.(name from HTML Input Element) = value from Input Element
   }
 
-  console.log(`Inputs: ${dataName}`);
+
+
+
+
+
+
+
+
+  // if(inputEls.length === Object.keys(model[dataName]).length) {     //  Compare Length of Array with number of properties in an Object
+  //   let i = 0;
+  //   for (; i < inputEls.length; i++) {
+  //     if(model[dataName].hasOwnProperty([inputEls[i].name]) === true){
+  //     model[dataName][inputEls[i].name] = inputEls[i].value         //  model.userInputBasicS1.(name from HTML Input Element) = value from Input Element
+  //     } else {
+  //     console.log(`ERROR - Mismatched Properties in Input Object: model.${dataName}`);
+  //     }
+  //   }
+  // } else {
+  //   console.log('Length ERROR')
+  // }
+
+  console.log(`INPUTS: ${dataName}`);
   console.log(model[dataName]);                         //  Start - {Basic/Advanced Customer Input S1/S2}
   model.updateLocalStore(model[dataName], dataName);    //  Start - {Basic/Advanced Customer Input S1/S2} to LOCAL STORAGE
 

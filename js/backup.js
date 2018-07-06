@@ -203,7 +203,7 @@ backup.backupMonthlyCapacityGrowthBreakdownSite02 = function() {       //  <<  G
 
     console.log('BACKUP Output Object (GREEN BOX):');
     console.log(backup.outputObject);                                         //  Backup Output (GREEN BOX)
-    model.updateLocalStore(backup.outputObject,'backup_output');
+    model.updateLocalStore(backup.outputObject,'backupOutputObject');
 
   };
 

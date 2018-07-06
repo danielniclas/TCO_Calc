@@ -25,6 +25,12 @@ assert.init = function (){
     tcEOY_S2: {year01: 0, year02: 0, year03: 0}
   };
 
+  assert.siteCalcChecksObject = {
+    dollarPerComputeNode:{year01:32532,year02:32052,year03:32052},
+    vmPerComputeNode:{year01:125,year02:120,year03:120},
+    ramPerComputeNode:{year01:500,year02:480,year03:480},
+    flashPerComputeNode:{year01:16320,year02:15360,year03:15360}
+  }
 };
 
 

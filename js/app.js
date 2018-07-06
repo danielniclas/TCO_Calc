@@ -18,11 +18,14 @@ datriumTCO.init = function() {
   cloud.init();
   tape.init();
   site.init();
+  costs.init();
   view.init();
 
   assert.init();
 
   helpers.addFormListeners();
+
+  console.log('>> App Initialized');
 
 };
 
@@ -33,10 +36,10 @@ datriumTCO.functionManager = function (){
 
   assumptions.collectData();
 
-  model.updateUserInputs('userInputBasic', 'S1');         //  1. input type (basic or advanced)  2. Primary or Secondary Site
-  model.updateUserInputs('userInputAdvanced', 'S1');      //  1. input type (basic or advanced)  2. Primary or Secondary Site
-  model.updateUserInputs('userInputBasic', 'S2');         //  1. input type (basic or advanced)  2. Primary or Secondary Site
-  model.updateUserInputs('userInputAdvanced', 'S2');      //  1. input type (basic or advanced)  2. Primary or Secondary Site
+  model.updateUserInputs('userInputBasic', 'S1');         //  1. Input type (basic or advanced)  2. S1 or S2
+  model.updateUserInputs('userInputAdvanced', 'S1');      //  1. Input type (basic or advanced)  2. S1 or S2
+  model.updateUserInputs('userInputBasic', 'S2');         //  1. Input type (basic or advanced)  2. S1 or S2
+  model.updateUserInputs('userInputAdvanced', 'S2');      //  1. Input type (basic or advanced)  2. S1 or S2
 
   backup.DVX_Backup_Calculations_Customer_Inputs();
   backup.backupMonthlyCapacityGrowthBreakdownSite01();
@@ -55,7 +58,9 @@ datriumTCO.functionManager = function (){
   tape.tapeBackupMonthlyCapacityGrowthBreakdownSite02();
   tape.tapeBackupOutput();
 
-  site.resourcesRequired();
+  site.siteResourcesAll();
+
+  costs.outputLevel_02_costsAll();
 
   view.render();
 
@@ -65,14 +70,36 @@ datriumTCO.functionManager = function (){
 
 datriumTCO.assertionTests = function(){
 
-  let backupOutput = model.getLocalStore('backup_output');       //  Backup Output - GREEN BOX
-  assert.objectsEqual(backupOutput, assert.backupGreenBoxObject, 'BACKUP - Backup Output > GREEN BOX');
+  let siteCalcsChecksActual = {dollarPerComputeNode: {}, vmPerComputeNode: {}, ramPerComputeNode: {}, flashPerComputeNode: {}};
+
+
+  let backupOutput = model.getLocalStore('backupOutputObject');       //  Backup Output - GREEN BOX
+  assert.objectsEqual(backupOutput, assert.backupGreenBoxObject, 'BACKUP - Backup Output > GREEN BOX');  //  (1.  actual  2.  expected)
 
   let cloudOutput = model.getLocalStore('cloudOutputObject');   //  Cloud Output - GREEN BOX
   assert.objectsEqual(cloudOutput, assert.cloudGreenBoxObject, 'CLOUD - Cloud Output > GREEN BOX');
 
   let tapeOutput = model.getLocalStore('tapeOutputObject');   //    Tape Output - GREEN BOX
   assert.objectsEqual(tapeOutput, assert.tapeGreenBoxObject, 'TAPE - Tape Output > GREEN BOX');
+
+  let siteCalcsS1 = model.getLocalStore('siteCalcsS1');   //    Site Calcs Output - Bottom of SpreadSheet
+  siteCalcsChecksActual.dollarPerComputeNode.year01 = siteCalcsS1.dollarPerComputeNode.year01;
+  siteCalcsChecksActual.dollarPerComputeNode.year02 = siteCalcsS1.dollarPerComputeNode.year02;
+  siteCalcsChecksActual.dollarPerComputeNode.year03 = siteCalcsS1.dollarPerComputeNode.year03;
+
+  siteCalcsChecksActual.vmPerComputeNode.year01 = siteCalcsS1.vmPerComputeNode.year01;
+  siteCalcsChecksActual.vmPerComputeNode.year02 = siteCalcsS1.vmPerComputeNode.year02;
+  siteCalcsChecksActual.vmPerComputeNode.year03 = siteCalcsS1.vmPerComputeNode.year03;
+
+  siteCalcsChecksActual.ramPerComputeNode.year01 = siteCalcsS1.ramPerComputeNode.year01;
+  siteCalcsChecksActual.ramPerComputeNode.year02 = siteCalcsS1.ramPerComputeNode.year02;
+  siteCalcsChecksActual.ramPerComputeNode.year03 = siteCalcsS1.ramPerComputeNode.year03;
+
+  siteCalcsChecksActual.flashPerComputeNode.year01 = siteCalcsS1.flashPerComputeNode.year01;
+  siteCalcsChecksActual.flashPerComputeNode.year02 = siteCalcsS1.flashPerComputeNode.year02;
+  siteCalcsChecksActual.flashPerComputeNode.year03 = siteCalcsS1.flashPerComputeNode.year03;
+  assert.objectsEqual(siteCalcsChecksActual, assert.siteCalcChecksObject, 'SITE CALCS - Checks'); //  (1.  actual  2.  expected)
+
 
 };
 
