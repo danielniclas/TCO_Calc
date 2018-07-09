@@ -411,62 +411,197 @@
 
         </div>
 
-    <div class="container" id="data-display">
-      <div class="row">
+    <div class="container-fluid" id="data-display" style="margin: 0 35px;">
 
+      <h2>Total Cost of Ownership Results</h2>
 
-        <div class="col-sm-6">
-        <h2 class='tomato'> Site Calculations Output Data:</h2>
-        <h4 class="tomato">Resources Required | Site 1</h4>
+      <div>
 
-
-          <table>
-            <tr>
-              <th>Infrastructure Resources</th>
-              <th>Year 1</th>
-              <th>Year 2</th>
-              <th>Year 3</th>
-            </tr>
-            <tr>
-              <td>VMs</td>
-              <td class="scVMs"></td>
-              <td class="scVMs"></td>
-              <td class="scVMs"></td>
-            </tr>
-            <tr>
-              <td>Total vCPUs Required</td>
-              <td class="totalVCPUs"></td>
-              <td class="totalVCPUs"></td>
-              <td class="totalVCPUs"></td>
-            </tr>
-            <tr>
-              <td>Total RAM Required</td>
-              <td class="totalRAM"></td>
-              <td class="totalRAM"></td>
-              <td class="totalRAM"></td>
-            </tr>
-            <tr>
-              <td>Primary Effective Capacity Required</td>
-              <td class="primaryCapacity"></td>
-              <td class="primaryCapacity"></td>
-              <td class="primaryCapacity"></td>
-            </tr>
-          </table>
-
+        <div class="row" style="margin-bottom: 45px;">
+          <div class="col-sm-4">
+            <h3>3 Year Overall TCO</h3>
+            <p>Legacy Total: <span id="tco_result_legacy_total"></span></p>
+            <p>DVX Total: <span id="tco_result_dvx_total"></span></p>
+          </div>
         </div>
 
-        <div class="col-sm-6">
 
 
+        <h3>3 Year TCO Legacy vs DVX (Annual)</h3>
 
-
-
+        <div class="row" style="margin-bottom: 45px;">
+          <div class="col-sm-4">
+            <h4>Year 1</h4>
+            <p>Legacy Total: <span id="tco_result_legacy_dvx_year1"></span></p>
+            <p>DVX Total: <span id="tco_result_dvx_year1"></span></p>
+          </div>
+          <div class="col-sm-4">
+            <h4>Year 2</h4>
+            <p>Legacy Total: <span id="tco_result_legacy_dvx_year2"></span></p>
+            <p>DVX Total: <span id="tco_result_dvx_year2"></span></p>
+          </div>
+          <div class="col-sm-4">
+            <h4>Year 3</h4>
+            <p>Legacy Total: <span id="tco_result_legacy_dvx_year3"></span></p>
+            <p>DVX Total: <span id="tco_result_dvx_year3"></span></p>
+          </div>
         </div>
 
+
+
+       <h3>Legacy 3YR Cost Breakup</h3>
+
+        <div class="row" style="margin-bottom: 45px;">
+          <div class="col-sm-3">
+            <h4>Year 1</h4>
+            <p>Power/Cooling: <span id="tco_result_power_year1" class="legacy_cost_breakup"></span></p>
+            <p>Space: <span id="tco_result_space_year1" class="legacy_cost_breakup"></span></p>
+            <p>Administration: <span id="tco_result_admin_year1" class="legacy_cost_breakup"></span></p>
+            <p>Network: <span id="tco_result_network_year1" class="legacy_cost_breakup"></span></p>
+            <p>Tape: <span id="tco_result_tape_year1" class="legacy_cost_breakup"></span></p>
+            <p>Backup: <span id="tco_result_backup_year1" class="legacy_cost_breakup"></span></p>
+            <p>Array: <span id="tco_result_array_year1" class="legacy_cost_breakup"></span></p>
+            <p>Compute: <span id="tco_result_compute_year1" class="legacy_cost_breakup"></span></p>
+          </div>
+          <div class="col-sm-3">
+            <h4>Year 2</h4>
+            <p>Power/Cooling: <span id="tco_result_power_year2" class="legacy_cost_breakup"></span></p>
+            <p>Space: <span id="tco_result_space_year2" class="legacy_cost_breakup"></span></p>
+            <p>Administration: <span id="tco_result_admin_year2" class="legacy_cost_breakup"></span></p>
+            <p>Network: <span id="tco_result_network_year2" class="legacy_cost_breakup"></span></p>
+            <p>Tape: <span id="tco_result_tape_year2" class="legacy_cost_breakup"></span></p>
+            <p>Backup: <span id="tco_result_backup_year2" class="legacy_cost_breakup"></span></p>
+            <p>Array: <span id="tco_result_array_year2" class="legacy_cost_breakup"></span></p>
+            <p>Compute: <span id="tco_result_compute_year2" class="legacy_cost_breakup"></span></p>
+          </div>
+          <div class="col-sm-3">
+            <h4>Year 3</h4>
+            <p>Power/Cooling: <span id="tco_result_power_year3" class="legacy_cost_breakup"></span></p>
+            <p>Space: <span id="tco_result_space_year3" class="legacy_cost_breakup"></span></p>
+            <p>Administration: <span id="tco_result_admin_year3" class="legacy_cost_breakup"></span></p>
+            <p>Network: <span id="tco_result_network_year3" class="legacy_cost_breakup"></span></p>
+            <p>Tape: <span id="tco_result_tape_year3" class="legacy_cost_breakup"></span></p>
+            <p>Backup: <span id="tco_result_backup_year3" class="legacy_cost_breakup"></span></p>
+            <p>Array: <span id="tco_result_array_year3" class="legacy_cost_breakup"></span></p>
+            <p>Compute: <span id="tco_result_compute_year3" class="legacy_cost_breakup"></span></p>
+          </div>
+          <div class="col-sm-3">
+            <h4>Total</h4>
+            <p><span id="tco_result_power_total" class="legacy_cost_breakup"></span></p>
+            <p><span id="tco_result_space_total" class="legacy_cost_breakup"></span></p>
+            <p><span id="tco_result_admin_total" class="legacy_cost_breakup"></span></p>
+            <p><span id="tco_result_network_total" class="legacy_cost_breakup"></span></p>
+            <p><span id="tco_result_tape_total" class="legacy_cost_breakup"></span></p>
+            <p><span id="tco_result_backup_total" class="legacy_cost_breakup"></span></p>
+            <p><span id="tco_result_array_total" class="legacy_cost_breakup"></span></p>
+            <p><span id="tco_result_compute_total" class="legacy_cost_breakup"></span></p>
+          </div>
       </div>
+
+        <h3>DVX 3YR Cost Breakup</h3>
+
+        <div class="row" style="margin-bottom: 45px;">
+          <div class="col-sm-3">
+            <h4>Year 1</h4>
+            <p>Compute or Flash: <span  class="DVX_cost_breakup"></span></p>
+            <p>Host Software: <span  class="DVX_cost_breakup"></span></p>
+            <p>Data Node: <span  class="DVX_cost_breakup"></span></p>
+            <p>Cloud Backup (DVX): <span  class="DVX_cost_breakup"></span></p>
+            <p>Network: <span  class="DVX_cost_breakup"></span></p>
+            <p>Administration: <span  class="DVX_cost_breakup"></span></p>
+            <p>Space: <span  class="DVX_cost_breakup"></span></p>
+            <p>Power/Cooling: <span  class="DVX_cost_breakup"></span></p>
+          </div>
+          <div class="col-sm-3">
+            <h4>Year 2</h4>
+            <p>Compute or Flash: <span  class="DVX_cost_breakup"></span></p>
+            <p>Host Software: <span class="DVX_cost_breakup"></span></p>
+            <p>Data Node: <span class="DVX_cost_breakup"></span></p>
+            <p>Cloud Backup (DVX): <span class="DVX_cost_breakup"></span></p>
+            <p>Network: <span class="DVX_cost_breakup"></span></p>
+            <p>Administration: <span class="DVX_cost_breakup"></span></p>
+            <p>Space: <span class="DVX_cost_breakup"></span></p>
+            <p>Power/Cooling: <span class="DVX_cost_breakup"></span></p>
+          </div>
+          <div class="col-sm-3">
+            <h4>Year 3</h4>
+            <p>Compute or Flash: <span class="DVX_cost_breakup"></span></p>
+            <p>Host Software: <span class="DVX_cost_breakup"></span></p>
+            <p>Data Node: <span class="DVX_cost_breakup"></span></p>
+            <p>Cloud Backup (DVX): <span class="DVX_cost_breakup"></span></p>
+            <p>Network: <span class="DVX_cost_breakup"></span></p>
+            <p>Administration: <span class="DVX_cost_breakup"></span></p>
+            <p>Space: <span class="DVX_cost_breakup"></span></p>
+            <p>Power/Cooling: <span class="DVX_cost_breakup"></span></p>
+          </div>
+          <div class="col-sm-3">
+            <h4>Total</h4>
+            <p><span class="DVX_cost_breakup"></span></p>
+            <p><span class="DVX_cost_breakup"></span></p>
+            <p><span class="DVX_cost_breakup"></span></p>
+            <p><span class="DVX_cost_breakup"></span></p>
+            <p><span class="DVX_cost_breakup"></span></p>
+            <p><span class="DVX_cost_breakup"></span></p>
+            <p><span class="DVX_cost_breakup"></span></p>
+            <p><span class="DVX_cost_breakup"></span></p>
+          </div>
+        </div>
+
+
+
+
+      <!--<div class="row">-->
+
+        <!--<div class="col-sm-6">-->
+        <!--<h2 class='tomato'> Site Calculations Output Data:</h2>-->
+        <!--<h4 class="tomato">Resources Required | Site 1</h4>-->
+
+          <!--<table>-->
+            <!--<tr>-->
+              <!--<th>Infrastructure Resources</th>-->
+              <!--<th>Year 1</th>-->
+              <!--<th>Year 2</th>-->
+              <!--<th>Year 3</th>-->
+            <!--</tr>-->
+            <!--<tr>-->
+              <!--<td>VMs</td>-->
+              <!--<td class="scVMs"></td>-->
+              <!--<td class="scVMs"></td>-->
+              <!--<td class="scVMs"></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+              <!--<td>Total vCPUs Required</td>-->
+              <!--<td class="totalVCPUs"></td>-->
+              <!--<td class="totalVCPUs"></td>-->
+              <!--<td class="totalVCPUs"></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+              <!--<td>Total RAM Required</td>-->
+              <!--<td class="totalRAM"></td>-->
+              <!--<td class="totalRAM"></td>-->
+              <!--<td class="totalRAM"></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+              <!--<td>Primary Effective Capacity Required</td>-->
+              <!--<td class="primaryCapacity"></td>-->
+              <!--<td class="primaryCapacity"></td>-->
+              <!--<td class="primaryCapacity"></td>-->
+            <!--</tr>-->
+          <!--</table>-->
+
+        <!--</div>-->
+
+        <!--<div class="col-sm-6">-->
+        <!--</div>-->
+      <!--</div>-->
+
+
+
 
 
     </div>
+
+
 
 
 
@@ -494,6 +629,7 @@
   <script src="js/tape.js"></script>
   <script src="js/site.js"></script>
   <script src="js/costs.js"></script>
+  <script src="js/outputData.js"></script>
   <script src="js/assert.js"></script>
   <script src="js/app.js"></script>
 

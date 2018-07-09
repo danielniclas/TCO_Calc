@@ -19,22 +19,22 @@ site.init = function () {
     'computeNodesRequired',
     'flashDevicesRequiredPerComputeNode',
     'backupUsableCapacityRequiredDVX',
-    'dataNodesRequiredPrimary',
-    'dataNodesRequiredBackup',
+    'dataNodesRequiredPrimary',             //  24
+    'dataNodesRequiredBackup',              //  25
     'computeNodeHWPriceDVX',                //  26
-    'computeNodeFlashPrice',
-    'computeNodeSWPrice',
-    'dataNodePricePrimary',
-    'dataNodePriceBackup',
-    'dVXRackCostsPrimary',
-    'dVXNetworkCostsPrimary',
-    'dVXAdminCostsPrimary',
-    'dVXPowerCoolingCostsPrimary',
-    'dVXRackCostsBackup',
-    'dVXNetworkCostsBackup',
-    'dVXAdminCostsBackup',
-    'dVXPowerCoolingCostsBackup',
-    'cloudDVXPrice',
+    'computeNodeFlashPrice',                //  27
+    'computeNodeSWPrice',                   //  28
+    'dataNodePricePrimary',                 //  29
+    'dataNodePriceBackup',                  //  30
+    'dVXRackCostsPrimary',                  //  31
+    'dVXNetworkCostsPrimary',               //  32
+    'dVXAdminCostsPrimary',                 //  33
+    'dVXPowerCoolingCostsPrimary',          //  34
+    'dVXRackCostsBackup',                   //  35
+    'dVXNetworkCostsBackup',                //  36
+    'dVXAdminCostsBackup',                  //  37
+    'dVXPowerCoolingCostsBackup',           //  38
+    'cloudDVXPrice',                        //  39
     'arrayPrimaryUsableCapacityRequiredDedup',
     'computeNodesRequiredArrays',
     'arraysRequiredForPrimaryStorage',
@@ -42,26 +42,26 @@ site.init = function () {
     'backupSystemsRequired',
     'tapeUsableCapacityRequired',
     'tapeSystemsRequired',
-    'arrayPrice',
+    'arrayPrice',                           //  49
     'computeNodeHWPriceArray',              //  50
-    'backupPrice',
-    'tapePrice',
-    'offsiteTapeRestorePrice',
-    'computeRackCosts',
-    'computeNetworkCosts',
-    'computePowerCoolingCosts',
-    'arrayRackCosts',
-    'arrayNetworkCosts',
-    'arrayAdminCosts',
-    'arrayPowerCoolingCosts',
-    'backupRackCosts',
-    'backupNetworkCosts',
-    'backupAdminCosts',
-    'backupPowerCoolingCosts',
-    'tapeRackCosts',
-    'tapeNetworkCosts',
-    'tapeAdminCosts',
-    'tapePowerCoolingCosts',
+    'backupPrice',                          //  51
+    'tapePrice',                            //  52
+    'offsiteTapeRestorePrice',              //  53
+    'computeRackCosts',                     //  54
+    'computeNetworkCosts',                  //  55
+    'computePowerCoolingCosts',             //  56
+    'arrayRackCosts',                       //  57
+    'arrayNetworkCosts',                    //  58
+    'arrayAdminCosts',                      //  59
+    'arrayPowerCoolingCosts',               //  60
+    'backupRackCosts',                      //  61
+    'backupNetworkCosts',                   //  62
+    'backupAdminCosts',                     //  63
+    'backupPowerCoolingCosts',              //  64
+    'tapeRackCosts',                        //  65
+    'tapeNetworkCosts',                     //  66
+    'tapeAdminCosts',                       //  67
+    'tapePowerCoolingCosts',                //  68
     'dollarPerComputeNode',
     'vmPerComputeNode',
     'ramPerComputeNode',

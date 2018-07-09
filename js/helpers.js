@@ -43,6 +43,14 @@ helpers.addFormListeners = function (){                    //  Update Button Eve
   updateBtn.addEventListener('click', datriumTCO.assertionTests, false);
 };
 
+helpers.commaFormat = function (num){
+  return ` &nbsp; $${parseInt(num).toLocaleString('EN')}`;
+};
+
+//  GET DOM Elements:
+
+
+
 
 
 //  Site Calculations - 3 Year Range - Add Data to Elements:
@@ -54,7 +62,7 @@ helpers.siteCalcDataEntry = function (elementList, content){
 };
 
 
-//  Gather Site Calc Table Rows Site 1 - DOM Elements:
+//  Gather Site Calc Table Rows Site 1 - DOM Elements:   (EXAMPLE TABLE)
 
 helpers.getTableRow04S1 = function (){
   return document.getElementsByClassName('scVMs')

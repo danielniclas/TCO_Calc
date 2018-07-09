@@ -19,6 +19,7 @@ datriumTCO.init = function() {
   tape.init();
   site.init();
   costs.init();
+  outputData.init();
   view.init();
 
   assert.init();
@@ -60,7 +61,11 @@ datriumTCO.functionManager = function (){
 
   site.siteResourcesAll();
 
-  costs.outputLevel_02_costsAll();
+  costs.outputLevel_02_CostsAll();
+
+  outputData.populateObjects();
+  outputData.threeYearLegacyBreakup();
+  outputData.threeYearDVXBreakup();
 
   view.render();
 
@@ -98,7 +103,7 @@ datriumTCO.assertionTests = function(){
   siteCalcsChecksActual.flashPerComputeNode.year01 = siteCalcsS1.flashPerComputeNode.year01;
   siteCalcsChecksActual.flashPerComputeNode.year02 = siteCalcsS1.flashPerComputeNode.year02;
   siteCalcsChecksActual.flashPerComputeNode.year03 = siteCalcsS1.flashPerComputeNode.year03;
-  assert.objectsEqual(siteCalcsChecksActual, assert.siteCalcChecksObject, 'SITE CALCS - Checks'); //  (1.  actual  2.  expected)
+  assert.objectsEqual(siteCalcsChecksActual, assert.siteCalcChecksObject, 'SITE CALCS - Calculations > CHECKS'); //  (1.  actual  2.  expected)
 
 
 };
