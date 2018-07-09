@@ -6,10 +6,6 @@
 let datriumTCO = {};
 
 
-/**
- * Initializes the datriumTCO app > manages data flow
- *
- */
 datriumTCO.init = function() {
 
   assumptions.init();
@@ -63,6 +59,7 @@ datriumTCO.functionManager = function (){
 
   costs.outputLevel_02_CostsAll();
 
+  outputData.getData();
   outputData.populateObjects();
   outputData.threeYearLegacyBreakup();
   outputData.threeYearDVXBreakup();

@@ -40,7 +40,7 @@
         </header>
 
 
-       <div class="container">
+       <div class="container-fluid side-margin">
 
             <form action="" method="get" id="userDataForm" name="user-data">
             <div class="row">
@@ -54,13 +54,13 @@
 
               <fieldset>
                 <legend>Deployment Model</legend>
-                Primary Storage (1-Yes, 0-No):
+                <span class="input-text">Primary Storage (1-Yes, 0-No):</span>
                 <input type="text" class="userInputBasicS1" name='primary_stor' value="1"><br>
-                Secondary Disk Storage (1-Yes, 0-No):
+                <span class="input-text">Secondary Disk Storage (1-Yes, 0-No):</span>
                 <input type="text" class="userInputBasicS1" name='secondary_stor' value="1"><br>
-                Tape (1 = local + offsite tape; 0 = no tape):
+                <span class="input-text">Tape (1 = local + offsite tape; 0 = no tape):</span>
                 <input type="text" class="userInputBasicS1" name='tape' value="1"><br>
-                Use existing compute nodes (1-Yes, 0-No):
+                <span class="input-text">Use existing compute nodes (1-Yes, 0-No):</span>
                 <input type="text" class="userInputBasicS1" name='existing_nodes' value="1"><br>
                 <br><br>
               </fieldset>
@@ -68,15 +68,15 @@
 
               <fieldset>
                 <legend>Primary Data & Workload</legend>
-                # of VMs:
+                <span class="input-text"># of VMs:</span>
                 <input type="text" class="userInputBasicS1" name='num_vms' value="1000"><br>
-                vCPUs per VM:
+                <span class="input-text">vCPUs per VM:</span>
                 <input type="text" class="userInputBasicS1" name='vcpu_vm' value="2"><br>
-                RAM (GB) per VM:
+                <span class="input-text">RAM (GB) per VM:</span>
                 <input type="text" class="userInputBasicS1" name='ram_vm' value="4"><br>
-                Disk (GB) per VM:
+                <span class="input-text">Disk (GB) per VM:</span>
                 <input type="text" class="userInputBasicS1" name='disk_vm' value="500"><br>
-                Projected Annual VM Growth:
+                <span class="input-text">Projected Annual VM Growth:</span>
                 <input type="text" class="userInputBasicS1" name='proj_vm_growth' value="20%"><br>
                 <br><br>
               </fieldset>
@@ -84,19 +84,19 @@
 
               <fieldset>
                 <legend>Backup & Archival Policy</legend>
-                Expected Primary Data Reduction (existing):
+                <span class="input-text">Expected Primary Data Reduction (existing):</span>
                 <input type="text" class="userInputBasicS1" name='primary_data_reduction' value="4"><br>
-                Expected Backup (disk) Data Reduction (existing):
+                <span class="input-text">Expected Backup (disk) Data Reduction (existing):</span>
                 <input type="text" class="userInputBasicS1" name='backup_data_reduction' value="4"><br>
-                Expected Tape Data Reduction (existing):
+                <span class="input-text">Expected Tape Data Reduction (existing):</span>
                 <input type="text" class="userInputBasicS1" name='tape_data_reduction' value="2"><br>
-                Backup expiration schedule (# days):
+                <span class="input-text">Backup expiration schedule (# days):</span>
                 <input type="text" class="userInputBasicS1" name='backup_exp_sched' value="90"><br>
-                Tape expiration schedule (# days):
+                <span class="input-text">Tape expiration schedule (# days):</span>
                 <input type="text" class="userInputBasicS1" name='tape_exp_sched' value="365"><br>
-                Daily change rate for backup (daily backups):
+                <span class="input-text">Daily change rate for backup (daily backups):</span>
                 <input type="text" class="userInputBasicS1" name='daily_change_rate' value="2%"><br>
-                Data restored from tapes annually (%):
+                <span class="input-text">Data restored from tapes annually (%):</span>
                 <input type="text" class="userInputBasicS1" name='data_restored_tape' value="1%"><br>
                 <br><br>
               </fieldset>
@@ -108,38 +108,38 @@
 
               <fieldset>
                 <legend>Operating Costs</legend>
-                FTW Admin $/Raw GB:
+                <span class="input-text">FTW Admin $/Raw GB:</span>
                 <input type="text" class="userInputAdvancedS1" name='FTE_admin_dollar' value="0.282"><br>
-                $/RU/Year in Data Center:
+                <span class="input-text">$/RU/Year in Data Center:</span>
                 <input type="text" class="userInputAdvancedS1" name='dollar_ru_year_data_center' value="261"><br>
-                $/kWatt/hr in the Data Center:
+                <span class="input-text">$/kWatt/hr in the Data Center:</span>
                 <input type="text" class="userInputAdvancedS1" name='dollar_kWatt_data_center' value="864.0"><br>
                 <br><br>
               </fieldset>
 
               <fieldset>
                 <legend>Compute Details</legend>
-                Server Base Cost:
+                <span class="input-text">Server Base Cost:</span>
                 <input type="text" class="userInputAdvancedS1" name="server_base_cost" value="2500"><br>
-                Server Cores:
+                <span class="input-text">Server Cores:</span>
                 <input type="text" class="userInputAdvancedS1" name="server_cores" value="40"><br>
-                vCPU to Core Oversubscription:
+                <span class="input-text">vCPU to Core Oversubscription:</span>
                 <input type="text" class="userInputAdvancedS1" name="vCPU_core_oversubscription" value="8"><br>
-                Server RAM (GB):
+                <span class="input-text">Server RAM (GB):</span>
                 <input type="text" class="userInputAdvancedS1" name="server_RAM" value="512"><br>
-                Server CPU ($/core):
+                <span class="input-text">Server CPU ($/core):</span>
                 <input type="text" class="userInputAdvancedS1" name="server_CPU_dollar" value="150"><br>
-                Server RAM ($/GB):
+                <span class="input-text">Server RAM ($/GB):</span>
                 <input type="text" class="userInputAdvancedS1" name="server_RAM_dollar" value="31"><br>
-                Server Cache ($/GB):
+                <span class="input-text">Server Cache ($/GB):</span>
                 <input type="text" class="userInputAdvancedS1" name="server_cache_dollar" value="0.50"><br>
-                Server Cache Size:
+                <span class="input-text">Server Cache Size:</span>
                 <input type="text" class="userInputAdvancedS1" name="server_cache_size" value="960"><br>
-                Server RUs:
+                <span class="input-text">Server RUs:</span>
                 <input type="text" class="userInputAdvancedS1" name="server_rus" value="1"><br>
-                Server Network Ports:
+                <span class="input-text">Server Network Ports:</span>
                 <input type="text" class="userInputAdvancedS1" name="server_network_ports" value="4"><br>
-                Server Power Consumption (kiloWatts):
+                <span class="input-text">Server Power Consumption (kiloWatts):</span>
                 <input type="text" class="userInputAdvancedS1" name="server_power_consumption" value="0.8"><br>
                 <br><br>
               </fieldset>
@@ -147,76 +147,76 @@
 
               <fieldset>
                 <legend>DVX Details</legend>
-                Expected Primary Data Reduction (existing):
+                <span class="input-text">Expected Primary Data Reduction (existing):</span>
                 <input type="text" class="userInputAdvancedS1" name="exp_data_reduction_DVX" value="4"><br>
-                Cloud DVX data reduction:
+                <span class="input-text">Cloud DVX data reduction:</span>
                 <input type="text" class="userInputAdvancedS1" name="cloud_data_reduction_ratio" value="1.00"><br>
-                DVX Host CPU Consumption:
+                <span class="input-text">DVX Host CPU Consumption:</span>
                 <input type="text" class="userInputAdvancedS1" name="DVX_host_cpu_consumption" value="0%"><br>
-                Data Node Usable Capacity:
+                <span class="input-text">Data Node Usable Capacity:</span>
                 <input type="text" class="userInputAdvancedS1" name="data_node_usable_capacity" value="30000"><br>
-                DVX Host License Cost:
+                <span class="input-text">DVX Host License Cost:</span>
                 <input type="text" class="userInputAdvancedS1" name="DVX_host_license_cost" value="6000"><br>
-                Data Node Cost:
+                <span class="input-text">Data Node Cost:</span>
                 <input type="text" class="userInputAdvancedS1" name="data_node_cost" value="51000"><br>
-                Cloud DVX net price (5TB/month):
+                <span class="input-text">Cloud DVX net price (5TB/month):</span>
                 <input type="text" class="userInputAdvancedS1" name="cloud_DVX_net_price" value="$250"><br>
-                DVX data node RUs:
+                <span class="input-text">DVX data node RUs:</span>
                 <input type="text" class="userInputAdvancedS1" name="DVX_data_node_rus" value="2"><br>
-                DVX Data Node Ports:
+                <span class="input-text">DVX Data Node Ports:</span>
                 <input type="text" class="userInputAdvancedS1" name="DVX_data_node_ports" value="4"><br>
-                DVX max cache per host usable:
+                <span class="input-text">DVX max cache per host usable:</span>
                 <input type="text" class="userInputAdvancedS1" name="DVX_max_cache_per_host" value="16000"><br>
-                DVX DN Power Consumption (KiloWatts):
+                <span class="input-text">DVX DN Power Consumption (KiloWatts):</span>
                 <input type="text" class="userInputAdvancedS1" name="DVX_DN_power_consumption" value="0.6"><br>
                 <br><br>
               </fieldset>
 
               <fieldset>
                 <legend>Primary Storage Details</legend>
-                Traditional Array Cost for Primary ($/GB):
+                <span class="input-text">Traditional Array Cost for Primary ($/GB):</span>
                 <input type="text" class="userInputAdvancedS1" name="traditional_array_cost_primary" value="9.50"><br>
-                Array Unit Capacity:
+                <span class="input-text">Array Unit Capacity:</span>
                 <input type="text" class="userInputAdvancedS1" name="array_unit_capacity" value="116200"><br>
-                Array Ports:
+                <span class="input-text">Array Ports:</span>
                 <input type="text" class="userInputAdvancedS1" name="array_ports" value="4"><br>
-                Array RUs:
+                <span class="input-text">Array RUs:</span>
                 <input type="text" class="userInputAdvancedS1" name="array_rus" value="5"><br>
-                Array Power Consumption (KiloWatts):
+                <span class="input-text">Array Power Consumption (KiloWatts):</span>
                 <input type="text" class="userInputAdvancedS1" name="array_power_consumption" value="1.28"><br>
                 <br><br>
               </fieldset>
 
               <fieldset>
                 <legend>Backup Storage Details</legend>
-                Traditional Backup System Cost ($/GB):
+                <span class="input-text">Traditional Backup System Cost ($/GB):</span>
                 <input type="text" class="userInputAdvancedS1" name="traditional_backup_system_cost" value="2.50"><br>
-                Backup Unit Capacity:
+                <span class="input-text">Backup Unit Capacity:</span>
                 <input type="text" class="userInputAdvancedS1" name="backup_unit_capacity" value="33600"><br>
-                Backup Host CPU Consumption:
+                <span class="input-text">Backup Host CPU Consumption:</span>
                 <input type="text" class="userInputAdvancedS1" name="backup_host_cpu_consumption" value="0%"><br>
-                Backup Ports:
+                <span class="input-text">Backup Ports:</span>
                 <input type="text" class="userInputAdvancedS1" name="backup_ports" value="4"><br>
-                Backup RUs:
+                <span class="input-text">Backup RUs:</span>
                 <input type="text" class="userInputAdvancedS1" name="backup_rus" value="2"><br>
-                Backup Power Consumption (KiloWatts):
+                <span class="input-text">Backup Power Consumption (KiloWatts):</span>
                 <input type="text" class="userInputAdvancedS1" name="backup_power_consumption" value="0.8"><br>
                 <br><br>
               </fieldset>
 
               <fieldset>
                 <legend>Tape Storage Details</legend>
-                Traditional Tape System Cost ($/GB):
+                <span class="input-text">Traditional Tape System Cost ($/GB):</span>
                 <input type="text" class="userInputAdvancedS1" name="traditional_tape_system_cost" value="0.07"><br>
-                Tape Unit Capacity:
+                <span class="input-text">Tape Unit Capacity:</span>
                 <input type="text" class="userInputAdvancedS1" name="tape_unit_capacity" value="240000"><br>
-                Tape Ports:
+                <span class="input-text">Tape Ports:</span>
                 <input type="text" class="userInputAdvancedS1" name="tape_ports" value="4"><br>
-                Network Costs (per port):
+                <span class="input-text">Network Costs (per port):</span>
                 <input type="text" class="userInputAdvancedS1" name="tape_rus" value="4"><br>
-                Tape Power Consumption (KiloWatts):
+                <span class="input-text">Tape Power Consumption (KiloWatts):</span>
                 <input type="text" class="userInputAdvancedS1" name="tape_power_consumption" value="0.5"><br>
-                Network Costs (per port):
+                <span class="input-text">Network Costs (per port):</span>
                 <input type="text" class="userInputAdvancedS1" name="network_cost_port" value="120"><br>
                 <br><br>
               </fieldset>
@@ -234,13 +234,13 @@
 
                 <fieldset>
                   <legend>Deployment Model</legend>
-                  Primary Storage (1-Yes, 0-No):
+                  <span class="input-text">Primary Storage (1-Yes, 0-No):</span>
                   <input type="text" class="userInputBasicS2" name='primary_stor' value="0"><br>
-                  Secondary Disk Storage (1-Yes, 0-No):
+                  <span class="input-text">Secondary Disk Storage (1-Yes, 0-No):</span>
                   <input type="text" class="userInputBasicS2" name='secondary_stor' value="0"><br>
-                  Tape (1 = local + offsite tape; 0 = no tape):
+                  <span class="input-text">Tape (1 = local + offsite tape; 0 = no tape):</span>
                   <input type="text" class="userInputBasicS2" name='tape' value="0"><br>
-                  Use existing compute nodes (1-Yes, 0-No):
+                  <span class="input-text">Use existing compute nodes (1-Yes, 0-No):</span>
                   <input type="text" class="userInputBasicS2" name='existing_nodes' value="0"><br>
                   <br><br>
                 </fieldset>
@@ -248,15 +248,15 @@
 
                 <fieldset>
                   <legend>Primary Data & Workload</legend>
-                  # of VMs:
+                  <span class="input-text"># of VMs:</span>
                   <input type="text" class="userInputBasicS2" name='num_vms' value="0"><br>
-                  vCPUs per VM:
+                  <span class="input-text">vCPUs per VM:</span>
                   <input type="text" class="userInputBasicS2" name='vcpu_vm' value="0"><br>
-                  RAM (GB) per VM:
+                  <span class="input-text">RAM (GB) per VM:</span>
                   <input type="text" class="userInputBasicS2" name='ram_vm' value="0"><br>
-                  Disk (GB) per VM:
+                  <span class="input-text">Disk (GB) per VM:</span>
                   <input type="text" class="userInputBasicS2" name='disk_vm' value="0"><br>
-                  Projected Annual VM Growth:
+                  <span class="input-text">Projected Annual VM Growth:</span>
                   <input type="text" class="userInputBasicS2" name='proj_vm_growth' value="0"><br>
                   <br><br>
                 </fieldset>
@@ -264,19 +264,19 @@
 
                 <fieldset>
                   <legend>Backup & Archival Policy</legend>
-                  Expected Primary Data Reduction (existing):
+                  <span class="input-text">Expected Primary Data Reduction (existing):</span>
                   <input type="text" class="userInputBasicS2" name='primary_data_reduction' value="1"><br>
-                  Expected Backup (disk) Data Reduction (existing):
+                  <span class="input-text">Expected Backup (disk) Data Reduction (existing):</span>
                   <input type="text" class="userInputBasicS2" name='backup_data_reduction' value="1"><br>
-                  Expected Tape Data Reduction (existing):
+                  <span class="input-text">Expected Tape Data Reduction (existing):</span>
                   <input type="text" class="userInputBasicS2" name='tape_data_reduction' value="1"><br>
-                  Backup expiration schedule (# days):
+                  <span class="input-text">Backup expiration schedule (# days):</span>
                   <input type="text" class="userInputBasicS2" name='backup_exp_sched' value="0"><br>
-                  Tape expiration schedule (# days):
+                  <span class="input-text">Tape expiration schedule (# days):</span>
                   <input type="text" class="userInputBasicS2" name='tape_exp_sched' value="0"><br>
-                  Daily change rate for backup (daily backups):
+                  <span class="input-text">Daily change rate for backup (daily backups):</span>
                   <input type="text" class="userInputBasicS2" name='daily_change_rate' value="0"><br>
-                  Data restored from tapes annually (%):
+                  <span class="input-text">Data restored from tapes annually (%):</span>
                   <input type="text" class="userInputBasicS2" name='data_restored_tape' value="0"><br>
                   <br><br>
                 </fieldset>
@@ -288,114 +288,114 @@
 
                 <fieldset>
                   <legend>Operating Costs</legend>
-                  FTW Admin $/Raw GB:
+                  <span class="input-text">FTW Admin $/Raw GB:</span>
                   <input type="text" class="userInputAdvancedS2" name='FTE_admin_dollar' value="0.282"><br>
-                  $/RU/Year in Data Center:
+                  <span class="input-text">$/RU/Year in Data Center:</span>
                   <input type="text" class="userInputAdvancedS2" name="dollarRUyearDataCenter" value="261"><br>
-                  $/kWatt/hr in the Data Center:
+                  <span class="input-text">$/kWatt/hr in the Data Center:</span>
                   <input type="text" class="userInputAdvancedS2" name='dollar_kWatt_data_center' value="864.0"><br>
                   <br><br>
                 </fieldset>
 
                 <fieldset>
                   <legend>Compute Details</legend>
-                  Server Base Cost:
+                  <span class="input-text">Server Base Cost:</span>
                   <input type="text" class="userInputAdvancedS2" name="server_base_cost" value="2500"><br>
-                  Server Cores:
+                  <span class="input-text">Server Cores:</span>
                   <input type="text" class="userInputAdvancedS2" name="server_cores" value="40"><br>
-                  vCPU to Core Oversubscription:
+                  <span class="input-text">vCPU to Core Oversubscription:</span>
                   <input type="text" class="userInputAdvancedS2" name="vCPU_core_oversubscription" value="8"><br>
-                  Server RAM (GB):
+                  <span class="input-text">Server RAM (GB):</span>
                   <input type="text" class="userInputAdvancedS2" name="server_RAM" value="512"><br>
-                  Server CPU ($/core):
+                  <span class="input-text">Server CPU ($/core):</span>
                   <input type="text" class="userInputAdvancedS2" name="server_CPU_dollar" value="150"><br>
-                  Server RAM ($/GB):
+                  <span class="input-text">Server RAM ($/GB):</span>
                   <input type="text" class="userInputAdvancedS2" name="server_RAM_dollar" value="31"><br>
-                  Server Cache ($/GB):
+                  <span class="input-text">Server Cache ($/GB):</span>
                   <input type="text" class="userInputAdvancedS2" name="server_cache_dollar" value="0.50"><br>
-                  Server Cache Size:
+                  <span class="input-text">Server Cache Size:</span>
                   <input type="text" class="userInputAdvancedS2" name="server_cache_size" value="960"><br>
-                  Server RUs:
+                  <span class="input-text">Server RUs:</span>
                   <input type="text" class="userInputAdvancedS2" name="server_rus" value="1"><br>
-                  Server Network Ports:
+                  <span class="input-text">Server Network Ports:</span>
                   <input type="text" class="userInputAdvancedS2" name="server_network_ports" value="4"><br>
-                  Server Power Consumption (kiloWatts):
+                  <span class="input-text">Server Power Consumption (kiloWatts):</span>
                   <input type="text" class="userInputAdvancedS2" name="server_power_consumption" value="0.8"><br>
                   <br><br>
                 </fieldset>
 
                 <fieldset>
                   <legend>DVX Details</legend>
-                  Expected Primary Data Reduction (existing):
+                  <span class="input-text">Expected Primary Data Reduction (existing):</span>
                   <input type="text" class="userInputAdvancedS2" name="exp_data_reduction_DVX" value="1"><br>
-                  Cloud DVX data reduction:
+                  <span class="input-text">Cloud DVX data reduction:</span>
                   <input type="text" class="userInputAdvancedS2" name="cloud_data_reduction_ratio" value="1.00"><br>
-                  DVX Host CPU Consumption:
+                  <span class="input-text">DVX Host CPU Consumption:</span>
                   <input type="text" class="userInputAdvancedS2" name="DVX_host_cpu_consumption" value="0%"><br>
-                  Data Node Usable Capacity:
+                  <span class="input-text">Data Node Usable Capacity:</span>
                   <input type="text" class="userInputAdvancedS2" name="data_node_usable_capacity" value="30000"><br>
-                  DVX Host License Cost:
+                  <span class="input-text">DVX Host License Cost:</span>
                   <input type="text" class="userInputAdvancedS2" name="DVX_host_license_cost" value="6000"><br>
-                  Data Node Cost:
+                  <span class="input-text">Data Node Cost:</span>
                   <input type="text" class="userInputAdvancedS2" name="data_node_cost" value="51000"><br>
-                  Cloud DVX net price (5TB/month):
+                  <span class="input-text">Cloud DVX net price (5TB/month):</span>
                   <input type="text" class="userInputAdvancedS2" name="cloud_DVX_net_price" value="$250"><br>
-                  DVX data node RUs:
+                  <span class="input-text">DVX data node RUs:</span>
                   <input type="text" class="userInputAdvancedS2" name="DVX_data_node_rus" value="2"><br>
-                  DVX Data Node Ports:
+                  <span class="input-text">DVX Data Node Ports:</span>
                   <input type="text" class="userInputAdvancedS2" name="DVX_data_node_ports" value="4"><br>
-                  DVX max cache per host usable:
+                  <span class="input-text">DVX max cache per host usable:</span>
                   <input type="text" class="userInputAdvancedS2" name="DVX_max_cache_per_host" value="16000"><br>
-                  DVX DN Power Consumption (KiloWatts):
+                  <span class="input-text">DVX DN Power Consumption (KiloWatts):</span>
                   <input type="text" class="userInputAdvancedS2" name="DVX_DN_power_consumption" value="0.6"><br>
                   <br><br>
                 </fieldset>
 
                 <fieldset>
                   <legend>Primary Storage Details</legend>
-                  Traditional Array Cost for Primary ($/GB):
+                  <span class="input-text">Traditional Array Cost for Primary ($/GB):</span>
                   <input type="text" class="userInputAdvancedS2" name="traditional_array_cost_primary" value="9.50"><br>
-                  Array Unit Capacity:
+                  <span class="input-text">Array Unit Capacity:</span>
                   <input type="text" class="userInputAdvancedS2" name="array_unit_capacity" value="116200"><br>
-                  Array Ports:
+                  <span class="input-text">Array Ports:</span>
                   <input type="text" class="userInputAdvancedS2" name="array_ports" value="4"><br>
-                  Array RUs:
+                  <span class="input-text">Array RUs:</span>
                   <input type="text" class="userInputAdvancedS2" name="array_rus" value="5"><br>
-                  Array Power Consumption (KiloWatts):
+                  <span class="input-text">Array Power Consumption (KiloWatts):</span>
                   <input type="text" class="userInputAdvancedS2" name="array_power_consumption" value="1.28"><br>
                   <br><br>
                 </fieldset>
 
                 <fieldset>
                   <legend>Backup Storage Details</legend>
-                  Traditional Backup System Cost ($/GB):
+                  <span class="input-text">Traditional Backup System Cost ($/GB):</span>
                   <input type="text" class="userInputAdvancedS2" name="traditional_backup_system_cost" value="2.50"><br>
-                  Backup Unit Capacity:
+                  <span class="input-text">Backup Unit Capacity:</span>
                   <input type="text" class="userInputAdvancedS2" name="backup_unit_capacity" value="33600"><br>
-                  Backup Host CPU Consumption:
+                  <span class="input-text">Backup Host CPU Consumption:</span>
                   <input type="text" class="userInputAdvancedS2" name="backup_host_cpu_consumption" value="0%"><br>
-                  Backup Ports:
+                  <span class="input-text">Backup Ports:</span>
                   <input type="text" class="userInputAdvancedS2" name="backup_ports" value="4"><br>
-                  Backup RUs:
+                  <span class="input-text">Backup RUs:</span>
                   <input type="text" class="userInputAdvancedS2" name="backup_rus" value="2"><br>
-                  Backup Power Consumption (KiloWatts):
+                  <span class="input-text">Backup Power Consumption (KiloWatts):</span>
                   <input type="text" class="userInputAdvancedS2" name="backup_power_consumption" value="0.8"><br>
                   <br><br>
                 </fieldset>
 
                 <fieldset>
                   <legend>Tape Storage Details</legend>
-                  Traditional Tape System Cost ($/GB):
+                  <span class="input-text">Traditional Tape System Cost ($/GB):</span>
                   <input type="text" class="userInputAdvancedS2" name="traditional_tape_system_cost" value="0.10"><br>
-                  Tape Unit Capacity:
+                  <span class="input-text">Tape Unit Capacity:</span>
                   <input type="text" class="userInputAdvancedS2" name="tape_unit_capacity" value="240000"><br>
-                  Tape Ports:
+                  <span class="input-text">Tape Ports:</span>
                   <input type="text" class="userInputAdvancedS2" name="tape_ports" value="4"><br>
-                  Network Costs (per port):
+                  <span class="input-text">Network Costs (per port):</span>
                   <input type="text" class="userInputAdvancedS2" name="tape_rus" value="4"><br>
-                  Tape Power Consumption (KiloWatts):
+                  <span class="input-text">Tape Power Consumption (KiloWatts):</span>
                   <input type="text" class="userInputAdvancedS2" name="tape_power_consumption" value="0.5"><br>
-                  Network Costs (per port):
+                  <span class="input-text">Network Costs (per port):</span>
                   <input type="text" class="userInputAdvancedS2" name="network_cost_port" value="120"><br>
                   <br><br>
                 </fieldset>
@@ -403,7 +403,7 @@
               </div>
             </div>
 
-              <hr>
+
               <input type="submit" id="updateBtn" value="Update">
               <hr>
             </form>
@@ -411,11 +411,12 @@
 
         </div>
 
-    <div class="container-fluid" id="data-display" style="margin: 0 35px;">
+
+
+    <div class="container-fluid side-margin" id="data-display">
 
       <h2>Total Cost of Ownership Results</h2>
 
-      <div>
 
         <div class="row" style="margin-bottom: 45px;">
           <div class="col-sm-4">
@@ -549,68 +550,11 @@
 
 
 
-
-      <!--<div class="row">-->
-
-        <!--<div class="col-sm-6">-->
-        <!--<h2 class='tomato'> Site Calculations Output Data:</h2>-->
-        <!--<h4 class="tomato">Resources Required | Site 1</h4>-->
-
-          <!--<table>-->
-            <!--<tr>-->
-              <!--<th>Infrastructure Resources</th>-->
-              <!--<th>Year 1</th>-->
-              <!--<th>Year 2</th>-->
-              <!--<th>Year 3</th>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td>VMs</td>-->
-              <!--<td class="scVMs"></td>-->
-              <!--<td class="scVMs"></td>-->
-              <!--<td class="scVMs"></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td>Total vCPUs Required</td>-->
-              <!--<td class="totalVCPUs"></td>-->
-              <!--<td class="totalVCPUs"></td>-->
-              <!--<td class="totalVCPUs"></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td>Total RAM Required</td>-->
-              <!--<td class="totalRAM"></td>-->
-              <!--<td class="totalRAM"></td>-->
-              <!--<td class="totalRAM"></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-              <!--<td>Primary Effective Capacity Required</td>-->
-              <!--<td class="primaryCapacity"></td>-->
-              <!--<td class="primaryCapacity"></td>-->
-              <!--<td class="primaryCapacity"></td>-->
-            <!--</tr>-->
-          <!--</table>-->
-
-        <!--</div>-->
-
-        <!--<div class="col-sm-6">-->
-        <!--</div>-->
-      <!--</div>-->
-
-
-
-
-
-    </div>
-
-
-
-
-
-
         <div class="footer">
           <p>Footer</p>
         </div>
 
-
+    </div>
 
 
   </section>
@@ -623,13 +567,13 @@
   <script src="js/helpers.js"></script>
   <script src="js/data.js"></script>
   <script src="js/model.js"></script>
-  <script src="js/view.js"></script>
   <script src="js/backup.js"></script>
   <script src="js/cloud.js"></script>
   <script src="js/tape.js"></script>
   <script src="js/site.js"></script>
   <script src="js/costs.js"></script>
   <script src="js/outputData.js"></script>
+  <script src="js/view.js"></script>
   <script src="js/assert.js"></script>
   <script src="js/app.js"></script>
 

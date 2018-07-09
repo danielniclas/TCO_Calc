@@ -6,13 +6,15 @@ outputData.init = function () {
   outputData.legacyBreakupArray = new Array (4);
   outputData.DVXBreakupArray = new Array (4);
 
-  let cols = 4, rows = 8;
-  for (let x = 0;x<cols;x++){
-    outputData.legacyBreakupArray[x] = new Array(rows);
+  outputData.cols = 4;
+  outputData.rows = 8;
+
+  for (let x = 0;x<outputData.cols;x++){
+    outputData.legacyBreakupArray[x] = new Array(outputData.rows);
   }
 
-  for (let x = 0;x<cols;x++){
-    outputData.DVXBreakupArray[x] = new Array(rows);
+  for (let x = 0;x<outputData.cols;x++){
+    outputData.DVXBreakupArray[x] = new Array(outputData.rows);
   }
 
   outputData.threeYearTCO = {
@@ -32,57 +34,34 @@ outputData.init = function () {
     DVX_opex: {}
   };
 
-
-
-
-
-
-
-  // outputData.threeYearCostBreakupLegacy = {
-  //   compute: {},
-  //   array: {},
-  //   backup: {},
-  //   tape: {},
-  //   network: {},
-  //   administration: {},
-  //   space: {},
-  //   powerCooling: {}
-  // };
-  //
-  // outputData.threeYearCostBreakupDVX = {
-  //   computeFlash: {},
-  //   hostSoftware: {},
-  //   dataNode: {},
-  //   cloudBackupDVX: {},
-  //   network: {},
-  //   administration: {},
-  //   space: {},
-  //   powerCooling: {}
-  // };
-
   console.log('Output Level Data');
+};
+
+outputData.getData = function () {
+
+  outputData.costsS1 = costs.costsS1;
+  outputData.costsS2 = costs.costsS2;
+
 };
 
 outputData.populateObjects = function (){
 
-  let costsS1 = model.getLocalStore ('costsS1');
-  let costsS2 = model.getLocalStore ('costsS2');
 
-  outputData.threeYearCapexOpexTCO.legacy_capex.year01 = costsS1.totalCapexLegacy.year01 + costsS2.totalCapexLegacy.year01;
-  outputData.threeYearCapexOpexTCO.legacy_capex.year02 = costsS1.totalCapexLegacy.year02 + costsS2.totalCapexLegacy.year02;
-  outputData.threeYearCapexOpexTCO.legacy_capex.year03 = costsS1.totalCapexLegacy.year03 + costsS2.totalCapexLegacy.year03;
+  outputData.threeYearCapexOpexTCO.legacy_capex.year01 = outputData.costsS1.totalCapexLegacy.year01 + outputData.costsS2.totalCapexLegacy.year01;
+  outputData.threeYearCapexOpexTCO.legacy_capex.year02 = outputData.costsS1.totalCapexLegacy.year02 + outputData.costsS2.totalCapexLegacy.year02;
+  outputData.threeYearCapexOpexTCO.legacy_capex.year03 = outputData.costsS1.totalCapexLegacy.year03 + outputData.costsS2.totalCapexLegacy.year03;
 
-  outputData.threeYearCapexOpexTCO.legacy_opex.year01 = costsS1.totalOpexLegacy.year01 + costsS2.totalOpexLegacy.year01;
-  outputData.threeYearCapexOpexTCO.legacy_opex.year02 = costsS1.totalOpexLegacy.year02 + costsS2.totalOpexLegacy.year02;
-  outputData.threeYearCapexOpexTCO.legacy_opex.year03 = costsS1.totalOpexLegacy.year03 + costsS2.totalOpexLegacy.year03;
+  outputData.threeYearCapexOpexTCO.legacy_opex.year01 = outputData.costsS1.totalOpexLegacy.year01 + outputData.costsS2.totalOpexLegacy.year01;
+  outputData.threeYearCapexOpexTCO.legacy_opex.year02 = outputData.costsS1.totalOpexLegacy.year02 + outputData.costsS2.totalOpexLegacy.year02;
+  outputData.threeYearCapexOpexTCO.legacy_opex.year03 = outputData.costsS1.totalOpexLegacy.year03 + outputData.costsS2.totalOpexLegacy.year03;
 
-  outputData.threeYearCapexOpexTCO.DVX_capex.year01 = costsS1.totalCapexDVX.year01 + costsS2.totalCapexDVX.year01;
-  outputData.threeYearCapexOpexTCO.DVX_capex.year02 = costsS1.totalCapexDVX.year02 + costsS2.totalCapexDVX.year02;
-  outputData.threeYearCapexOpexTCO.DVX_capex.year03 = costsS1.totalCapexDVX.year03 + costsS2.totalCapexDVX.year03;
+  outputData.threeYearCapexOpexTCO.DVX_capex.year01 = outputData.costsS1.totalCapexDVX.year01 + outputData.costsS2.totalCapexDVX.year01;
+  outputData.threeYearCapexOpexTCO.DVX_capex.year02 = outputData.costsS1.totalCapexDVX.year02 + outputData.costsS2.totalCapexDVX.year02;
+  outputData.threeYearCapexOpexTCO.DVX_capex.year03 = outputData.costsS1.totalCapexDVX.year03 + outputData.costsS2.totalCapexDVX.year03;
 
-  outputData.threeYearCapexOpexTCO.DVX_opex.year01 = costsS1.totalOpexDVX.year01 + costsS2.totalOpexDVX.year01;
-  outputData.threeYearCapexOpexTCO.DVX_opex.year02 = costsS1.totalOpexDVX.year02 + costsS2.totalOpexDVX.year02;
-  outputData.threeYearCapexOpexTCO.DVX_opex.year03 = costsS1.totalOpexDVX.year03 + costsS2.totalOpexDVX.year03;
+  outputData.threeYearCapexOpexTCO.DVX_opex.year01 = outputData.costsS1.totalOpexDVX.year01 + outputData.costsS2.totalOpexDVX.year01;
+  outputData.threeYearCapexOpexTCO.DVX_opex.year02 = outputData.costsS1.totalOpexDVX.year02 + outputData.costsS2.totalOpexDVX.year02;
+  outputData.threeYearCapexOpexTCO.DVX_opex.year03 = outputData.costsS1.totalOpexDVX.year03 + outputData.costsS2.totalOpexDVX.year03;
 
   outputData.threeYearLegacyDVX.legacy_total.year01 = outputData.threeYearCapexOpexTCO.legacy_capex.year01 + outputData.threeYearCapexOpexTCO.legacy_opex.year01;
   outputData.threeYearLegacyDVX.legacy_total.year02 = outputData.threeYearCapexOpexTCO.legacy_capex.year02 + outputData.threeYearCapexOpexTCO.legacy_opex.year02;
@@ -96,7 +75,7 @@ outputData.populateObjects = function (){
   outputData.threeYearTCO.DVX_total = outputData.threeYearLegacyDVX.DVX_total.year01 + outputData.threeYearLegacyDVX.DVX_total.year02 + outputData.threeYearLegacyDVX.DVX_total.year03;
 
   // console.log('TEST');
-  // console.log(costsS1.totalOpexDVX.year01);
+  // console.log(outputData.totalOpexDVX.year01);
 
 
   console.log('OUTPUT DATA - Three Year Capex Opex TCO:');
@@ -115,30 +94,20 @@ outputData.populateObjects = function (){
 
 outputData.threeYearLegacyBreakup = function (){
 
-  let costsS1 = costs.costsS1,
-    costsS2 = costs.costsS2;
-
-  let cols = 4,
-    rows = 8;
-  //
-  // for (let x = 0;x<cols;x++){
-  //   outputData.legacyBreakupArray[x] = new Array(rows);
-  // }
-
-  for (let i = 0;i<cols;i++){
+  for (let i = 0;i<outputData.cols;i++){
     if(3 === i){
-      for (let j = 0; j < rows; j++){
+      for (let j = 0; j < outputData.rows; j++){
         outputData.legacyBreakupArray[i][j] = outputData.legacyBreakupArray[i-3][j] + outputData.legacyBreakupArray[i-2][j] + outputData.legacyBreakupArray[i-1][j];
       }
     } else {
-      outputData.legacyBreakupArray[i][0] = costsS1.compute[`year0${i+1}`] + costsS2.compute[`year0${i+1}`];
-      outputData.legacyBreakupArray[i][1] = costsS1.array[`year0${i+1}`] + costsS2.array[`year0${i+1}`];
-      outputData.legacyBreakupArray[i][2] = costsS1.backup[`year0${i+1}`] + costsS2.backup[`year0${i+1}`];
-      outputData.legacyBreakupArray[i][3] = costsS1.tape[`year0${i+1}`] + costsS2.tape[`year0${i+1}`];
-      outputData.legacyBreakupArray[i][4] = costsS1.networkTotal[`year0${i+1}`] + costsS2.networkTotal[`year0${i+1}`];
-      outputData.legacyBreakupArray[i][5] = costsS1.adminTotal[`year0${i+1}`] + costsS2.adminTotal[`year0${i+1}`];
-      outputData.legacyBreakupArray[i][6] = costsS1.spaceTotal[`year0${i+1}`] + costsS2.spaceTotal[`year0${i+1}`];
-      outputData.legacyBreakupArray[i][7] = costsS1.powerCoolingTotal[`year0${i+1}`] + costsS2.powerCoolingTotal[`year0${i+1}`];
+      outputData.legacyBreakupArray[i][0] = outputData.costsS1.compute[`year0${i+1}`] + outputData.costsS2.compute[`year0${i+1}`];
+      outputData.legacyBreakupArray[i][1] = outputData.costsS1.array[`year0${i+1}`] + outputData.costsS2.array[`year0${i+1}`];
+      outputData.legacyBreakupArray[i][2] = outputData.costsS1.backup[`year0${i+1}`] + outputData.costsS2.backup[`year0${i+1}`];
+      outputData.legacyBreakupArray[i][3] = outputData.costsS1.tape[`year0${i+1}`] + outputData.costsS2.tape[`year0${i+1}`];
+      outputData.legacyBreakupArray[i][4] = outputData.costsS1.networkTotal[`year0${i+1}`] + outputData.costsS2.networkTotal[`year0${i+1}`];
+      outputData.legacyBreakupArray[i][5] = outputData.costsS1.adminTotal[`year0${i+1}`] + outputData.costsS2.adminTotal[`year0${i+1}`];
+      outputData.legacyBreakupArray[i][6] = outputData.costsS1.spaceTotal[`year0${i+1}`] + outputData.costsS2.spaceTotal[`year0${i+1}`];
+      outputData.legacyBreakupArray[i][7] = outputData.costsS1.powerCoolingTotal[`year0${i+1}`] + outputData.costsS2.powerCoolingTotal[`year0${i+1}`];
     }
   }
 
@@ -148,30 +117,20 @@ outputData.threeYearLegacyBreakup = function (){
 
 outputData.threeYearDVXBreakup = function () {
 
-  let costsS1 = costs.costsS1,
-    costsS2 = costs.costsS2;
-
-  let cols = 4,
-    rows = 8;
-  //
-  // for (let x = 0;x<cols;x++){
-  //   outputData.DVXBreakupArray[x] = new Array(rows);
-  // }
-
-  for (let i = 0;i<cols;i++){
+  for (let i = 0;i<outputData.cols;i++){
     if(3 === i){
-      for (let j = 0; j < rows; j++){
+      for (let j = 0; j < outputData.rows; j++){
         outputData.DVXBreakupArray[i][j] = outputData.DVXBreakupArray[i-3][j] + outputData.DVXBreakupArray[i-2][j] + outputData.DVXBreakupArray[i-1][j];
       }
     } else {
-      outputData.DVXBreakupArray[i][0] = costsS1.computeHostFlash[`year0${i+1}`] + costsS2.computeHostFlash[`year0${i+1}`];             //  <<<<<<   ALL THESE MUST BE ADJUSTED FOR DVX
-      outputData.DVXBreakupArray[i][1] = costsS1.swDVX[`year0${i+1}`] + costsS2.swDVX[`year0${i+1}`];
-      outputData.DVXBreakupArray[i][2] = costsS1.hwDVX[`year0${i+1}`] + costsS2.hwDVX[`year0${i+1}`];
-      outputData.DVXBreakupArray[i][3] = costsS1.cloudDVXInclOpex[`year0${i+1}`];
-      outputData.DVXBreakupArray[i][4] = costsS1.networkDVXCompute[`year0${i+1}`] + costsS2.networkDVXCompute[`year0${i+1}`];
-      outputData.DVXBreakupArray[i][5] = costsS1.adminDVXCompute[`year0${i+1}`] + costsS2.adminDVXCompute[`year0${i+1}`];
-      outputData.DVXBreakupArray[i][6] = costsS1.spaceDVXCompute[`year0${i+1}`] + costsS2.spaceDVXCompute[`year0${i+1}`];
-      outputData.DVXBreakupArray[i][7] = costsS1.powerCoolingDVXCompute[`year0${i+1}`] + costsS2.powerCoolingDVXCompute[`year0${i+1}`];
+      outputData.DVXBreakupArray[i][0] = outputData.costsS1.computeHostFlash[`year0${i+1}`] + outputData.costsS2.computeHostFlash[`year0${i+1}`];
+      outputData.DVXBreakupArray[i][1] = outputData.costsS1.swDVX[`year0${i+1}`] + outputData.costsS2.swDVX[`year0${i+1}`];
+      outputData.DVXBreakupArray[i][2] = outputData.costsS1.hwDVX[`year0${i+1}`] + outputData.costsS2.hwDVX[`year0${i+1}`];
+      outputData.DVXBreakupArray[i][3] = outputData.costsS1.cloudDVXInclOpex[`year0${i+1}`];
+      outputData.DVXBreakupArray[i][4] = outputData.costsS1.networkDVXCompute[`year0${i+1}`] + outputData.costsS2.networkDVXCompute[`year0${i+1}`];
+      outputData.DVXBreakupArray[i][5] = outputData.costsS1.adminDVXCompute[`year0${i+1}`] + outputData.costsS2.adminDVXCompute[`year0${i+1}`];
+      outputData.DVXBreakupArray[i][6] = outputData.costsS1.spaceDVXCompute[`year0${i+1}`] + outputData.costsS2.spaceDVXCompute[`year0${i+1}`];
+      outputData.DVXBreakupArray[i][7] = outputData.costsS1.powerCoolingDVXCompute[`year0${i+1}`] + outputData.costsS2.powerCoolingDVXCompute[`year0${i+1}`];
     }
   }
 
